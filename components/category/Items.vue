@@ -2,62 +2,18 @@
   <v-container class="pa-4">
     <v-row class="fill-height">
       <template v-for="(item, i) in items">
-        <v-col
-          :key="i"
-          cols="12"
-          md="3"
-        >
-          <v-hover v-slot:default="{ hover }">
-            <v-card
-              class="mx-auto"
-              color="grey lighten-4"
-              max-width="400"
-            >
-              <v-img
-                :aspect-ratio="16/9"
-                src="https://cdn.vuetifyjs.com/images/cards/kitchen.png"
-              >
-                <v-expand-transition>
-                  <div
-                    v-if="hover"
-                    class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text"
-                    style="height: 100%;"
-                  >
-                    $14.99
-                  </div>
-                </v-expand-transition>
-              </v-img>
-              <v-card-text
-                class="pt-6"
-                style="position: relative;"
-              >
-                <v-btn
-                  absolute
-                  color="orange"
-                  class="white--text"
-                  fab
-                  small
-                  right
-                  top
-                >
-                  <v-icon small>mdi-cart</v-icon>
-                </v-btn>
-                <div class="font-weight-light grey--text title mb-2">For the perfect meal</div>
-              </v-card-text>
-            </v-card>
-          </v-hover>
-
-
-
-        </v-col>
+        <item/>
       </template>
     </v-row>
-
   </v-container>
 </template>
 
 <script>
+  import Item from '~/components/category/Item.vue'
+
   export default {
+    name: 'ItemsList',
+
     data: () => ({
       icons: ['mdi-rewind', 'mdi-play', 'mdi-fast-forward'],
       items: [
@@ -100,29 +56,16 @@
       ],
       transparent: 'rgba(255, 255, 255, 0)',
     }),
+
+    components: {
+      Item
+    }
   }
 </script>
 
 <style scoped>
-  .v-card {
-    transition: opacity .4s ease-in-out;
-  }
+  .item-overlay-button {
 
-  /*.v-card:not(.on-hover) {*/
-    /*opacity: 0.6;*/
-  /*}*/
-
-  .show-btns {
-    color: rgba(255, 255, 255, 1) !important;
-  }
-
-  .v-card--reveal {
-    align-items: center;
-    bottom: 0;
-    justify-content: center;
-    opacity: .5;
-    position: absolute;
-    width: 100%;
   }
 
 

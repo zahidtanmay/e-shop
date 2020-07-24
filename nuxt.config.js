@@ -25,7 +25,9 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'}
+      {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Montserrat:400,500,500i,600,700,800'},
+      {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Material+Icons'},
+      {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Material+Icons'}
     ]
   },
   /*
@@ -77,7 +79,8 @@ export default {
   */
   vuetify: {
     customVariables: [
-      '~/assets/variables.scss',
+      '@/assets/variables.scss',
+      '@/assets/overrides.sass',
       '@mdi/font/css/materialdesignicons.css',
     ],
     icons: {

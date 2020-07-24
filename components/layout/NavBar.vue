@@ -3,19 +3,22 @@
     v-model="drawer"
     app
     clipped
-    color="lighten-4"
+    color="grey lighten-4"
     class="main-nav"
+    width="220px"
   >
 
     <v-list
       dense
       link
       v-for="link in navLinks"
+      :key="link.text"
       class="main-side-nav-list"
     >
       <template v-if="link.child && link.child.length > 0">
 
         <v-list-group :key="link.text">
+
           <template v-slot:activator>
             <v-list-item-title>{{link.text}}</v-list-item-title>
           </template>
@@ -29,7 +32,7 @@
                 sub-group
                 height="30"
                 :key="linkChild.text"
-                class="link-child-list-group"
+                class="headline font-weight-thin"
               >
                 <template v-slot:activator>
                   <v-list-item-content>
@@ -181,5 +184,9 @@
     font-weight: normal !important;
   }
   .main-nav .v-navigation-drawer__content { margin-top: 20px !important; }
+  .main-nav .v-list-item--active {
+    font-weight: 700 !important;
+    color: #d39b11;
+  }
 
 </style>
