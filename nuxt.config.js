@@ -103,5 +103,18 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
-  }
+  },
+
+  loading: {
+    color: '#108775',
+    height: '3px',
+    failedColor: 'red',
+    throttle: 200,
+
+  },
+
+  router: {
+    linkActiveClass: 'active-link',
+    linkExactActiveClass: 'exact-active-link'
+  },
 }
