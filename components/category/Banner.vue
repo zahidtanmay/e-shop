@@ -25,7 +25,7 @@
     name: 'CategoryBanner',
     data: () => ({
       cards: [
-        {title: 'Pre-fab homes', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 12},
+        {title: 'Pre-fab homes', src: 'https://cdn.chaldal.net/_mpimage/breads?src=https%3A%2F%2Feggyolk.chaldal.com%2Fapi%2FPicture%2FRaw%3FpictureId%3D32645&q=low&v=1&w=700&webp=1', flex: 12},
       ],
     })
   }

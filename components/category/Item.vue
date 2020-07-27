@@ -1,8 +1,8 @@
 <template>
   <v-col
-    :key="i"
     cols="12"
     md="3"
+    sm="4"
   >
 
     <v-hover>
@@ -13,7 +13,7 @@
           max-width="344"
         >
           <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/forest-art.jpg"
+            :src="itemDetails.img"
             height="180px"
           >
           </v-img>
@@ -21,9 +21,9 @@
 
 
           <v-card-text class="text-center">
-            <div class="body-1 mb-4">Fresh Refined Sugar</div>
-            <div class="primary--text">1 kg</div>
-            <div class="primary--text title">$ 66</div>
+            <div class="body-1 mb-4">{{itemDetails.title}}</div>
+            <div class="primary--text">{{itemDetails.context}}</div>
+            <div class="primary--text title">$ {{itemDetails.unitPrice}}</div>
           </v-card-text>
 
 
@@ -37,11 +37,17 @@
               @click=""
               z-index="0"
             >
-              <div class="display-2 text-center">
+              <div class="display-2 text-center" v-if="count > 0">
+
+                {{count}} Added
+              </div>
+              <div class="display-2 text-center" v-else>
                 Add to cart
               </div>
-              <div class="text-center">
 
+
+
+              <div class="text-center">
                 <v-btn
                   small
                   depressed
@@ -49,6 +55,7 @@
                   class="item-overlay-button mt-16"
                   width="100%"
                   v-if="hover"
+                  @click="setItemDetails"
                 >
                   view details
                 </v-btn>
@@ -69,11 +76,55 @@
       </template>
     </v-hover>
 
+    <v-row v-if="count > 0">
+      <v-col
+        cols="12"
+        sm="3"
+        class="py-0"
+      >
+        <v-btn depressed
+               small
+               width="100%"
+               @click="removeFromCart"
+        >
+          <v-icon>mdi-minus</v-icon>
+        </v-btn>
+      </v-col>
+
+      <v-col
+        cols="12"
+        sm="5"
+        class="py-0"
+      >
+
+
+
+        {{count}} added
+      </v-col>
+      <v-col
+        cols="12"
+        sm="3"
+        class="py-0"
+      >
+        <v-btn depressed
+               small
+               width="100%"
+               @click="addToCart"
+        >
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
+
+      </v-col>
+    </v-row>
+
+
     <v-btn
       depressed
       small
       width="100%"
       class="mt-1"
+      v-else
+      @click="addToCart"
     >
       Add to cart
     </v-btn>
@@ -82,7 +133,61 @@
 </template>
 
 <script>
+
+  import { mapGetters } from 'vuex'
+
   export default {
-    name: 'CartItem'
+    name: 'SingleProductItem',
+
+    props: ['itemDetails'],
+
+    data: () => ({
+      count: 0,
+    }),
+
+    methods: {
+
+      setItemDetails () {
+        this.$store.commit('component/setItemDetailsDialog', true)
+      },
+
+      async addToCart () {
+        const r = await this.$store.dispatch('cart/addToCart', { item: this.itemDetails, count: this.count, cartPre: this.cartPre })
+        console.log('r a atc', r)
+        this.count = r
+      },
+
+      async removeFromCart () {
+        const r = await this.$store.dispatch('cart/removeFromCart', { item: this.itemDetails, count: this.count, cartPre: this.cartPre })
+        console.log('r a rfc', r)
+        this.count = r
+      }
+    },
+
+    computed: {
+      ...mapGetters({
+        cartItems: 'cart/getCartItems'
+      }),
+
+      cartPre () {
+        return this.$route.params.category
+      },
+
+    },
+
+    watch: {
+      cartItems (val) {
+        // console.log('mcr', val)
+        if (`${this.itemDetails.id}` in val) {
+          const item = val[`${this.itemDetails.id}`]
+          this.count = item.count
+        } else {
+          this.count = 0
+        }
+      }
+    },
+
+
   }
+
 </script>

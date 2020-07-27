@@ -5,7 +5,7 @@
 
     <nav-bar></nav-bar>
 
-  <cart-drawer></cart-drawer>
+    <cart-drawer></cart-drawer>
 
     <v-main>
         <nuxt/>
@@ -36,6 +36,11 @@
     data: () => ({
 
     }),
+
+    mounted () {
+      console.log('asdfasdf')
+    },
+
 
 
   }

@@ -16,10 +16,10 @@
               <v-icon>shopping_cart</v-icon>
             </div>
             <div>
-              <span>2 Items</span>
+              <span>{{cartCount}} {{cartCount > 1 ? 'Items' : 'Item'}}</span>
             </div>
             <div class="grey black--text">
-              <span>$ 200</span>
+              <span>$ {{cartTotal}}</span>
             </div>
           </div>
 
@@ -52,6 +52,8 @@
     computed: {
       ...mapGetters({
         drawer: 'component/getCartDrawer',
+        cartCount: 'cart/getCartCount',
+        cartTotal: 'cart/getCartTotal',
       })
     },
 
