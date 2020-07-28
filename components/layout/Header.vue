@@ -4,6 +4,7 @@
     clipped-left
     clipped-right
     color="amber"
+    flat
   >
     <v-app-bar-nav-icon @click="setNavDrawer"></v-app-bar-nav-icon>
     <nuxt-link to="/" class="main-logo black--text">

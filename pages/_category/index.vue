@@ -8,14 +8,13 @@
 
           <bread-crumb></bread-crumb>
 
+          <category-title/>
+
           <Items/>
 
         </v-col>
 
       </v-row>
-
-
-
 
     </v-container>
 
@@ -25,6 +24,7 @@
   import Banner from '~/components/category/Banner.vue'
   import BreadCrumb from '~/components/category/BreadCrumb.vue'
   import Items from '~/components/category/Items.vue'
+  import CategoryTitle from '~/components/category/Title.vue'
   export default {
     name: 'CategoryRoot',
 
@@ -45,7 +45,8 @@
     components: {
       Banner,
       BreadCrumb,
-      Items
+      Items,
+      CategoryTitle
     },
 
     mounted() {

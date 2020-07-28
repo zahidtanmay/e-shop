@@ -6,6 +6,7 @@
     color="grey lighten-4"
     class="main-nav"
     width="220px"
+    flat
   >
 
     <v-list

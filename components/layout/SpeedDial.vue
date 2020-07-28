@@ -6,20 +6,25 @@
           v-model="fab"
           dark
           class="ma-2 main-speed-dial d-inline"
-          outlined
-          color="teal"
           @click="setCartNav"
           height="80px"
         >
-          <div class="d-inline">
-            <div>
-              <v-icon>shopping_cart</v-icon>
-            </div>
-            <div>
-              <span>{{cartCount}} {{cartCount > 1 ? 'Items' : 'Item'}}</span>
-            </div>
-            <div class="grey black--text">
-              <span>$ {{cartTotal}}</span>
+
+          <div class="d-inline" style="background: #55584D;color: #fdd670; width: 100%;">
+            <v-row >
+              <v-col >
+                <div>
+                  <v-icon>shopping_cart</v-icon>
+                </div>
+                <div>
+                  <span>{{cartCount}} {{cartCount > 1 ? 'Items' : 'Item'}}</span>
+                </div>
+              </v-col>
+
+            </v-row>
+
+            <div class="grey lighten-4 grey--text">
+              <span><v-icon small>mdi-currency-bdt</v-icon> {{cartTotal}}</span>
             </div>
           </div>
 

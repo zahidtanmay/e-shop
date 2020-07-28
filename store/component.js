@@ -3,6 +3,8 @@ export const state = () => ({
   loginDialog: false,
   cartDrawer: false,
   itemDetailsDialog: false,
+  orderDialog: false,
+
 })
 
 export const getters = {
@@ -15,6 +17,7 @@ export const mutations = {
   setLoginDialog: (state, value) => { state.loginDialog = value },
   setCartDrawer: (state, value) => { state.cartDrawer = value },
   setItemDetailsDialog: (state, value) => { state.itemDetailsDialog = value },
+  setOrderDialog: (state, value) => { state.orderDialog = value }
 }
 
 export const actions = {

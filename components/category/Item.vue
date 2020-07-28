@@ -23,7 +23,7 @@
           <v-card-text class="text-center">
             <div class="body-1 mb-4">{{itemDetails.title}}</div>
             <div class="primary--text">{{itemDetails.context}}</div>
-            <div class="primary--text title">$ {{itemDetails.unitPrice}}</div>
+            <div class="primary--text title"><v-icon>mdi-currency-bdt</v-icon> {{itemDetails.unitPrice}}</div>
           </v-card-text>
 
 
@@ -135,11 +135,16 @@
 <script>
 
   import { mapGetters } from 'vuex'
+  import { mdiCurrencyBdt } from '@mdi/js'
 
   export default {
     name: 'SingleProductItem',
 
     props: ['itemDetails'],
+
+    components: {
+      mdiCurrencyBdt
+    },
 
     data: () => ({
       count: 0,

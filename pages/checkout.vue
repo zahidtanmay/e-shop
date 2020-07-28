@@ -81,7 +81,33 @@
           </v-stepper-step>
 
           <v-stepper-content step="2">
-            <v-card color="grey lighten-1" class="mb-12" height="200px"></v-card>
+            <v-row align="center">
+              <v-col cols="6">
+                <v-select
+                  v-model="select"
+                  :items="items"
+                  item-text="state"
+                  item-value="abbr"
+                  label="Select"
+                  persistent-hint
+                  return-object
+                  single-line
+                ></v-select>
+              </v-col>
+
+              <v-col cols="6">
+                <v-select
+                  v-model="select"
+                  :items="items"
+                  item-text="state"
+                  item-value="abbr"
+                  label="Select"
+                  persistent-hint
+                  return-object
+                  single-line
+                ></v-select>
+              </v-col>
+            </v-row>
             <v-btn color="primary" @click="e6 = 3">Continue</v-btn>
             <v-btn text>Cancel</v-btn>
           </v-stepper-content>
@@ -105,6 +131,7 @@
       area: '',
       address: '',
       areas: [],
+      items: [],
       rules: {
         required: value => !!value || 'Required.',
       },
