@@ -29,6 +29,10 @@ export const mutations = {
     }
   },
 
+  DISCARD_CART_ITEM: (state, data) => {
+    delete state.cartItems[`${data.id}`]
+  },
+
   CALCULATE_CART_COUNT: (state) => {
     state.cartCount = Object.keys(state.cartItems).length
   },
@@ -63,6 +67,12 @@ export const actions = {
     } else {
       return 0
     }
+  },
+
+  async discardFromCart ({commit, state}, data) {
+    await commit('DISCARD_CART_ITEM', data)
+    await commit('CALCULATE_CART_COUNT')
+    await commit('CALCULATE_CART_TOTAL')
   }
 
 }
