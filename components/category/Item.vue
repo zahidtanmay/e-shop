@@ -166,6 +166,15 @@
         const r = await this.$store.dispatch('cart/removeFromCart', { item: this.itemDetails, count: this.count, cartPre: this.cartPre })
         console.log('r a rfc', r)
         this.count = r
+      },
+
+      itemCountSet (val) {
+        if (`${this.itemDetails.id}` in val) {
+          const item = val[`${this.itemDetails.id}`]
+          this.count = item.count
+        } else {
+          this.count = 0
+        }
       }
     },
 
@@ -180,15 +189,17 @@
 
     },
 
+    mounted () {
+      this.itemCountSet(this.cartItems)
+    },
+
     watch: {
-      cartItems (val) {
-        // console.log('mcr', val)
-        if (`${this.itemDetails.id}` in val) {
-          const item = val[`${this.itemDetails.id}`]
-          this.count = item.count
-        } else {
-          this.count = 0
+      cartItems: {
+        deep: true,
+        handler (val) {
+          this.itemCountSet(val)
         }
+
       }
     },
 
