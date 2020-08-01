@@ -39,7 +39,7 @@
             >
               <div class="display-2 text-center" v-if="count > 0">
 
-                {{count}} Added
+                {{count}} added
               </div>
               <div class="display-2 text-center" v-else>
                 Add to cart
@@ -94,12 +94,9 @@
       <v-col
         cols="12"
         sm="5"
-        class="py-0"
+        class="py-0 text-center"
       >
-
-
-
-        {{count}} added
+        {{count}}
       </v-col>
       <v-col
         cols="12"
@@ -157,15 +154,11 @@
       },
 
       async addToCart () {
-        const r = await this.$store.dispatch('cart/addToCart', { item: this.itemDetails, count: this.count, cartPre: this.cartPre })
-        console.log('r a atc', r)
-        this.count = r
+        await this.$store.dispatch('cart/addToCart', { item: this.itemDetails, count: this.count, cartPre: this.cartPre })
       },
 
       async removeFromCart () {
-        const r = await this.$store.dispatch('cart/removeFromCart', { item: this.itemDetails, count: this.count, cartPre: this.cartPre })
-        console.log('r a rfc', r)
-        this.count = r
+        await this.$store.dispatch('cart/removeFromCart', { item: this.itemDetails, count: this.count, cartPre: this.cartPre })
       },
 
       itemCountSet (val) {
@@ -201,6 +194,7 @@
         }
 
       }
+
     },
 
 

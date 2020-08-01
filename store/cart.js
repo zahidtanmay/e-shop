@@ -16,21 +16,21 @@ export const mutations = {
   INCREMENT_CART_ITEM: (state, data) => {
     const item = data.item
     item.count = data.count + 1
-    Vue.set(state.cartItems, item.id, item)
+    state.cartItems = { ...state.cartItems, [item.id]: Vue._.cloneDeep(item) }
   },
 
   DECREMENT_CART_ITEM: (state, data) => {
     const item = data.item
     if (data.count === 1) {
-      delete state.cartItems[`${item.id}`]
+      Vue.delete(state.cartItems, item.id)
     } else {
       item.count = data.count - 1
-      Vue.set(state.cartItems, item.id, item)
+      state.cartItems = { ...state.cartItems, [item.id]: Vue._.cloneDeep(item) }
     }
   },
 
   DISCARD_CART_ITEM: (state, data) => {
-    delete state.cartItems[`${data.id}`]
+    Vue.delete(state.cartItems, data.id)
   },
 
   CALCULATE_CART_COUNT: (state) => {
