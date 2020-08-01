@@ -20,7 +20,6 @@
 
         <v-list-group
           group
-          height="30"
           dense
           :key="link.text"
           :value="cat === currentNav.cat"
@@ -34,36 +33,38 @@
           </template>
 
           <template v-for="(linkChild, scat) in link.child">
-            <!--:disabled="scat === currentNav.scat && cat === currentNav.cat"-->
+
             <template v-if="linkChild.child && linkChild.child.length > 0">
-              <v-list-group
-                dense
-                no-action
-                sub-group
-                height="30"
-                :key="linkChild.text"
-                :class="['headline', 'font-weight-thin', scat === currentNav.scat && cat === currentNav.cat ? 'scat-active' : '']"
-                :ref="`scat-${cat}-${scat}`"
-                :value="scat === currentNav.scat && cat === currentNav.cat"
-                :disabled="scat === currentNav.scat && cat === currentNav.cat"
-                @click="routeLink(cat, scat, null, linkChild.link)"
 
+              <v-list-item
+                @click="routeLink(cat, scat)"
+                :to="linkChild.link"
+                link
+                :class="['sub-group-list', scat === currentNav.scat ? 'sub-group-active' : '']"
               >
-                <template slot="activator">
-                    <v-list-item-title :to="linkChild.link" :class="[scat === currentNav.scat && cat === currentNav.cat ? 'scat-active-header' : '']">
-                      {{linkChild.text}}
-                    </v-list-item-title>
-                </template>
+                <transition transition="scale-transition">
+                  <v-list-item-icon v-if="scat === currentNav.scat"><v-icon color="nav-active-color" class="nav-active-icon">mdi-chevron-up</v-icon></v-list-item-icon>
+                  <v-list-item-icon v-else><v-icon color="grey lighten-1">mdi-chevron-down</v-icon></v-list-item-icon>
+                </transition>
 
-                <v-list-item
-                  v-for="(child, chi) in linkChild.child"
-                  :key="child.text"
-                  link
-                  :to="child.link"
-                >
-                  <v-list-item-title @click="routeLink(cat, scat, chi)" v-text="child.text"></v-list-item-title>
-                </v-list-item>
-              </v-list-group>
+                <v-list-item-title class="sub-group-title">{{linkChild.text}}</v-list-item-title>
+              </v-list-item>
+
+
+              <transition-group transition="expand-transition" class="py-0" group>
+                <template v-if="scat === currentNav.scat">
+                  <v-list-item
+                    v-for="(child, chi) in linkChild.child"
+                    :key="child.text"
+                    link
+                    :to="child.link"
+                  >
+                    <v-list-item-title @click="routeLink(cat, scat, chi)" v-text="child.text" class="sub-group-child"></v-list-item-title>
+                  </v-list-item>
+                </template>
+              </transition-group>
+
+
 
             </template>
 
@@ -73,7 +74,7 @@
                 :key="linkChild.text"
                 link
                 :to="linkChild.link"
-                class="link-child"
+                class="single-sub-group"
               >
                 <v-list-item-title @click="routeLink(cat, scat)" v-text="linkChild.text"></v-list-item-title>
               </v-list-item>
@@ -110,7 +111,7 @@
     name: 'NavDrawer',
 
     data: () => ({
-      navList: [],
+
     }),
 
     computed: {
@@ -131,61 +132,43 @@
 
     methods: {
       routeLink (cat = null, scat = null, chi = null, type='') {
-        console.log(cat, scat, this.$refs)
 
-          const currentNav = {cat: cat, scat: scat, chi: chi}
-          if (type) {
-            this.$router.push(`/${type}`)
-          }
+        const currentNav = {cat: cat, scat: scat, chi: chi}
+        if (type) {
+          this.$router.push(`/${type}`)
+        }
 
-          this.$store.commit('nav/setCurrentNav', currentNav)
-          localStorage.setItem('currentNav', JSON.stringify(currentNav));
-
+        this.$store.commit('nav/setCurrentNav', currentNav)
 
       }
     },
 
     mounted() {
-      // this.navList = this.navLinks
+      // this.navList = this._.cloneDeep(this.navLinks)
     }
 
   }
 
 </script>
 
-<style>
+<style lang="scss">
+
+  .main-nav .v-navigation-drawer__content { margin-top: 12px !important; }
+
   .main-side-nav-list { padding: 0 !important; }
-  .main-side-nav-list .v-list-item--dense, .v-list--dense .v-list-item {
-    min-height: 30px !important;
-  }
-  .main-side-nav-list .link-child { padding-left: 40px !important; }
-  .link-child-list-group .v-list-group__header { height: 30px !important; }
-  .link-child-list-group .v-list-item__icon {
-    margin-top: 3px !important;
-    margin-bottom: 0 !important;
-  }
-  .main-side-nav-list .v-list-item__title {
-    font-weight: normal !important;
-  }
-  .main-nav .v-navigation-drawer__content { margin-top: 20px !important; }
-  .main-nav .v-list-item--active {
-    font-weight: 700 !important;
-    color: #d39b11;
-  }
 
-  .scat-active .v-list-group__items {
-    display: block !important;
-  }
+  .main-side-nav-list .v-list-item__title { font-weight: 200 !important; font-size: .9rem !important; }
 
-  .scat-active-header {
-    font-weight: 700 !important;
-    color: #d39b11 !important;
-  }
+  .main-nav .v-list-item--active { font-weight: 700 !important; color: $nav-active-color; }
 
-  .scat-active .v-list-item .v-list-item__icon {
-    color: #d39b11 !important;
-  }
+  .v-list-item--active .v-list-item__title{ font-weight: 400 !important; }
 
+  .sub-group-active .sub-group-title { font-weight: 700 !important; color: $nav-active-color; }
 
+  .sub-group-child { padding-left: 75px; }
+
+  .single-sub-group { padding-left: 70px; }
+
+  .nav-active-icon { color: $nav-active-color !important; }
 
 </style>

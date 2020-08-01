@@ -4,6 +4,7 @@ export const state = () => ({
   cartDrawer: false,
   itemDetailsDialog: false,
   orderDialog: false,
+  addressDialog: false,
 
 })
 
@@ -17,7 +18,8 @@ export const mutations = {
   setLoginDialog: (state, value) => { state.loginDialog = value },
   setCartDrawer: (state, value) => { state.cartDrawer = value },
   setItemDetailsDialog: (state, value) => { state.itemDetailsDialog = value },
-  setOrderDialog: (state, value) => { state.orderDialog = value }
+  setOrderDialog: (state, value) => { state.orderDialog = value },
+  setAddressDialog: (state, value) => { state.addressDialog = value }
 }
 
 export const actions = {

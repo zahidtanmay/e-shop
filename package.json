@@ -16,6 +16,7 @@
     "core-js": "^2.6.5",
     "lodash": "^4.17.19",
     "nuxt": "^2.13.0",
+    "vue-lodash": "^2.1.2",
     "vue-product-zoomer": "^3.0.1",
     "vuex-persist": "^2.2.0"
   },

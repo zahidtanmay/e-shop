@@ -34,13 +34,19 @@ export default {
   ** Global CSS
   */
   css: [
-    '@mdi/font/css/materialdesignicons.css'
+    '@mdi/font/css/materialdesignicons.css',
+    '~assets/custom/colors.scss'
   ],
+
+  styleResources: {
+    scss: ['./assets/custom/*.scss']
+  },
   /*
   ** Plugins to load before mounting the App
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
+    '~/plugins/vue-lodash',
     { src: '~/plugins/vuex-persist', ssr: false }
   ],
   /*
@@ -107,6 +113,8 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+    plugins: [
+    ]
   },
 
   loading: {
