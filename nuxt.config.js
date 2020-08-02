@@ -47,6 +47,8 @@ export default {
   */
   plugins: [
     '~/plugins/vue-lodash',
+    { src: '~/plugins/route', ssr: false },
+    '~/plugins/axios',
     { src: '~/plugins/vuex-persist', ssr: false }
   ],
   /*
@@ -80,6 +82,7 @@ export default {
   ** See https://content.nuxtjs.org/configuration
   */
   content: {},
+
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module
@@ -127,6 +130,7 @@ export default {
 
   router: {
     linkActiveClass: 'active-link',
-    linkExactActiveClass: 'exact-active-link'
+    linkExactActiveClass: 'exact-active-link',
+    middleware: ['nav']
   },
 }
