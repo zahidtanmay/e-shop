@@ -5,7 +5,7 @@
       :key="card.title"
       :cols="card.flex"
     >
-      <v-card class="mx-16" flat>
+      <v-card :class="[$vuetify.breakpoint.name === 'xs' ? '' : 'mx-16']" flat>
         <v-img
           :src="card.src"
           class="white--text align-end"

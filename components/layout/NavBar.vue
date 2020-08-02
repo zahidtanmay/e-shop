@@ -3,7 +3,6 @@
     v-model="drawer"
     app
     clipped
-    color="grey lighten-4"
     class="main-nav"
     width="220px"
     flat

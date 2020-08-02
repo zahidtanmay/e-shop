@@ -1,22 +1,11 @@
 <template>
-  <v-app-bar
-    app
-    clipped-left
-    clipped-right
-    color="amber"
-    flat
-  >
+  <v-app-bar app clipped-left clipped-right flat class="main-nav-bar">
     <v-app-bar-nav-icon @click="setNavDrawer"></v-app-bar-nav-icon>
     <nuxt-link to="/" class="main-logo black--text">
       <span class="title ml-3 mr-5">E&nbsp;<span class="font-weight-light">Shop</span></span>
     </nuxt-link>
-    <v-text-field
-      solo-inverted
-      flat
-      hide-details
-      label="Search"
-      prepend-inner-icon="search"
-    ></v-text-field>
+
+    <v-text-field solo-inverted flat hide-details label="Search" prepend-inner-icon="search"></v-text-field>
 
     <v-spacer></v-spacer>
 
@@ -92,6 +81,7 @@
   }
 </script>
 
-<style>
+<style lang="scss">
   .main-logo { text-decoration: none; }
+  .main-nav-bar { background-color: $nav-bar-color !important;border-color: $nav-bar-color !important; }
 </style>
