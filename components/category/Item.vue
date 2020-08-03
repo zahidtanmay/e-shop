@@ -15,13 +15,13 @@
           </v-card-text>
 
           <v-fade-transition>
-            <v-overlay v-if="hover" absolute color="#036358" @click="" z-index="0">
+            <v-overlay v-if="hover" absolute color="#036358" z-index="0">
 
               <div class="display-2 text-center" v-if="count > 0">{{count}} added</div>
               <div class="display-2 text-center" v-else>Add to cart</div>
 
               <div class="text-center">
-                <v-btn small depressed color="grey" class="item-overlay-button mt-16" width="100%" v-if="hover" @click="setItemDetails">
+                <v-btn small depressed color="grey" class="item-overlay-button mt-16" width="100%" v-if="hover" @click="setItemDetails(itemDetails)">
                   view details
                 </v-btn>
               </div>
@@ -76,7 +76,8 @@
 
     methods: {
 
-      setItemDetails () {
+      setItemDetails (item) {
+        this.$store.commit('product/SET_ACTIVE_PRODUCT', item)
         this.$store.commit('component/setItemDetailsDialog', true)
       },
 
@@ -95,7 +96,8 @@
         } else {
           this.count = 0
         }
-      }
+      },
+
     },
 
     computed: {

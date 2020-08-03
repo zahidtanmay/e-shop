@@ -53,9 +53,8 @@
 
     },
 
-    middleware({ store, redirect }) {
-      // If the user is not authenticated
-      store.dispatch('product/fetchProduct')
+    async middleware({ store, redirect }) {
+      await store.dispatch('product/fetchProduct')
     }
   }
 </script>
