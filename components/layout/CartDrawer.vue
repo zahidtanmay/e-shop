@@ -24,17 +24,17 @@
           </v-row>
 
           <v-list-item-avatar size="30" tile>
-            <v-img :src="item.img"></v-img>
+            <v-img :src="item.imageUrl"></v-img>
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-subtitle class="cart-drawer-item-content-title">{{item.title}}</v-list-item-subtitle>
-            <v-list-item-subtitle class="cart-drawer-item-content-subtitle"><v-icon x-small>mdi-currency-bdt</v-icon>{{item.unitPrice}} / {{item.context}}</v-list-item-subtitle>
+            <v-list-item-subtitle class="cart-drawer-item-content-title">{{item.name}}</v-list-item-subtitle>
+            <v-list-item-subtitle class="cart-drawer-item-content-subtitle"><v-icon x-small>mdi-currency-bdt</v-icon>{{item.price}} / {{item.unit}}</v-list-item-subtitle>
           </v-list-item-content>
 
           <v-row align="center" justify="end" class="cart-drawer-item-right-row">
             <span><v-icon x-small>mdi-currency-bdt</v-icon></span>
-            <span class="subheading mr-2 font-weight-light">{{item.unitPrice * item.count}}</span>
+            <span class="subheading mr-2 font-weight-light">{{item.price * item.count}}</span>
             <v-btn icon x-small @click="discardFromCart(item)"><v-icon  color="error">mdi-close</v-icon></v-btn>
           </v-row>
         </v-list-item>

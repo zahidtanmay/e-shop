@@ -6,12 +6,12 @@
     <v-hover>
       <template v-slot:default="{ hover }">
         <v-card flat class="mx-auto" max-width="220px">
-          <v-img :src="itemDetails.img" height="180px"></v-img>
+          <v-img :src="itemDetails.imageUrl" height="180px" eager></v-img>
 
           <v-card-text class="text-center">
-            <div class="body-1 mb-4">{{itemDetails.title}}</div>
-            <div class="primary--text">{{itemDetails.context}}</div>
-            <div class="primary--text title"><v-icon>mdi-currency-bdt</v-icon> {{itemDetails.unitPrice}}</div>
+            <div class="item-name-text mb-4">{{itemDetails.name}}</div>
+            <div class="primary--text">{{itemDetails.unit}}</div>
+            <div class="primary--text title"><v-icon>mdi-currency-bdt</v-icon> {{itemDetails.price}}</div>
           </v-card-text>
 
           <v-fade-transition>
@@ -130,7 +130,11 @@
 </script>
 
 <style>
-  .category-single-item {
-    max-width: 210px !important;
+  .category-single-item { max-width: 210px !important; }
+  .item-name-text { min-height: 32px;
+    font-size: .8rem !important;
+    font-weight: 400;
+    letter-spacing: 0.03125em !important;
+    line-height: 1rem;
   }
 </style>

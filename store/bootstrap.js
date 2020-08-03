@@ -15,9 +15,11 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetchCategories ({$axios}) {
-    console.log('fetch')
+
+  async fetchLayout (context) {
     await this.$axios.setHeader('X-Company-Id', '1')
-    let r = await this.$axios.get('http://dev.isalebd.com/api/v1/layout')
+    let {data} = await this.$axios.get('/layout')
+    context.commit('SET_CATEGORIES', data.data.categories)
+    context.commit('SET_COMPANY', data.data.company)
   }
 }

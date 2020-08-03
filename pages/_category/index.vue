@@ -51,6 +51,11 @@
 
     mounted() {
 
+    },
+
+    middleware({ store, redirect }) {
+      // If the user is not authenticated
+      store.dispatch('product/fetchProduct')
     }
   }
 </script>

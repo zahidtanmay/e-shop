@@ -1,6 +1,12 @@
-import Vue from 'vue'
+
 export default function ({ $axios, redirect }) {
-  console.log('axios')
+
+  if (process.client) {
+    $axios.onRequest(config => {
+      console.log('Making request to ' + config.url)
+    })
+  }
+
   $axios.onRequest(config => {
     console.log('Making request to ' + config.url)
   })

@@ -76,7 +76,9 @@ export default {
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {},
+  axios: {
+    baseURL: process.env.BASE_URL
+  },
   /*
   ** Content module configuration
   ** See https://content.nuxtjs.org/configuration
@@ -133,4 +135,5 @@ export default {
     linkExactActiveClass: 'exact-active-link',
     middleware: ['nav']
   },
+
 }

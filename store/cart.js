@@ -42,7 +42,7 @@ export const mutations = {
     let key = null
     for (key in state.cartItems) {
       const item = state.cartItems[`${key}`]
-      let subTotal = item.count * item.unitPrice
+      let subTotal = item.count * item.price
       total += subTotal
     }
     state.cartTotal = total

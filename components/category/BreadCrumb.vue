@@ -27,29 +27,31 @@
       ...mapGetters({
         currentNav: 'nav/getCurrentNav',
         navLinks: 'nav/getNavLinks',
+        categories: 'bootstrap/getCategories'
       }),
 
       breads () {
         const {cat, scat, chi} = this.currentNav
-        let parent = Object.assign({}, this.navLinks[cat])
+        const categories = this.categories
+        let parent = Object.assign({}, categories[cat])
         let bread = []
         if (scat !=null && chi != null) {
           bread = [
             {
-              text: this.navLinks[cat]['text'],
-              href: this.navLinks[cat]['link'],
+              text: categories[cat]['name'],
+              href: categories[cat]['name'],
               disabled: false,
               val: { cat: cat, scat: null, chi: null }
             },
             {
-              text: this.navLinks[cat]['child'][scat]['text'],
-              href: this.navLinks[cat]['child'][scat]['link'],
+              text: categories[cat]['child'][scat]['name'],
+              href: categories[cat]['child'][scat]['name'],
               disabled: false,
               val: { cat: cat, scat: scat, chi: null }
             },
             {
-              text: this.navLinks[cat]['child'][scat]['child'][chi]['text'],
-              href: this.navLinks[cat]['child'][scat]['child'][chi]['text'],
+              text: categories[cat]['child'][scat]['child'][chi]['name'],
+              href: categories[cat]['child'][scat]['child'][chi]['name'],
               disabled: true,
               val: { cat: cat, scat: scat, chi: chi }
             }
@@ -58,14 +60,14 @@
         } else if (scat != null) {
           bread = [
             {
-              text: this.navLinks[cat]['text'],
-              href: this.navLinks[cat]['link'],
+              text: categories[cat]['name'],
+              href: categories[cat]['name'],
               disabled: false,
               val: { cat: cat, scat: null, chi: null }
             },
             {
-              text: this.navLinks[cat]['child'][scat]['text'],
-              href: this.navLinks[cat]['child'][scat]['link'],
+              text: categories[cat]['subCategories'][scat]['name'],
+              href: categories[cat]['subCategories'][scat]['name'],
               disabled: true,
               val: { cat: cat, scat: scat, chi: null }
             }
@@ -73,8 +75,8 @@
         } else {
           bread = [
             {
-              text: parent.text,
-              href: parent.link,
+              text: parent.name,
+              href: parent.name,
               disabled: true,
               val: { cat: cat, scat: null, chi: null }
             }

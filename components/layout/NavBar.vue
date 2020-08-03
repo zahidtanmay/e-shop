@@ -11,29 +11,29 @@
     <v-list
       dense
       link
-      v-for="(link, cat) in navLinks"
-      :key="link.text"
+      v-for="(category, cat) in categories"
+      :key="category.name"
       class="main-side-nav-list"
     >
-      <template v-if="link.child && link.child.length > 0">
+      <template v-if="category.subCategories && category.subCategories.length > 0">
 
         <v-list-group
           group
           dense
-          :key="link.text"
+          :key="category.name"
           :value="cat === currentNav.cat"
           :ref="`cat-${cat}`"
-          @click.prevent="routeLink(cat, null, null, link.link)"
-          :to="link.link"
+          @click.prevent="routeLink(cat, null, null, category.name)"
+          :to="category.name"
         >
 
           <template slot="activator">
-            <v-list-item-title>{{link.text}}</v-list-item-title>
+            <v-list-item-title>{{category.name}}</v-list-item-title>
           </template>
 
-          <template v-for="(linkChild, scat) in link.child">
+          <template v-for="(subCategory, scat) in category.subCategories">
 
-            <template v-if="linkChild.child && linkChild.child.length > 0">
+            <template v-if="subCategory.child && subCategory.child.length > 0">
 
               <v-list-item
                 @click="routeLink(cat, scat)"
@@ -70,12 +70,12 @@
             <template v-else>
 
               <v-list-item
-                :key="linkChild.text"
+                :key="subCategory.name"
                 link
-                :to="linkChild.link"
+                :to="subCategory.name"
                 class="single-sub-group"
               >
-                <v-list-item-title @click="routeLink(cat, scat)" v-text="linkChild.text"></v-list-item-title>
+                <v-list-item-title @click="routeLink(cat, scat)" v-text="subCategory.name"></v-list-item-title>
               </v-list-item>
             </template>
 
@@ -89,11 +89,11 @@
       <template v-else >
         <v-list-item
           link
-          :to="link.link"
-          :key="link.text"
+          :to="category.name"
+          :key="category.name"
           @click="routeLink(cat)"
         >
-          <v-list-item-title>{{link.text}}</v-list-item-title>
+          <v-list-item-title>{{category.name}}</v-list-item-title>
         </v-list-item>
       </template>
 
@@ -116,7 +116,8 @@
     computed: {
       ...mapGetters({
         navLinks: 'nav/getNavLinks',
-        currentNav: 'nav/getCurrentNav'
+        currentNav: 'nav/getCurrentNav',
+        categories: 'bootstrap/getCategories'
       }),
 
       drawer: {

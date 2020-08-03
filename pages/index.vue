@@ -7,19 +7,19 @@
 
     <v-row dense>
       <v-col
-        v-for="card in cards"
-        :key="card.title"
+        v-for="category in categories"
+        :key="category.name"
         :cols="12"
         md="4"
       >
-        <v-card outlined nuxt :to="card.link">
+        <v-card outlined nuxt :to="category.name">
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-subtitle v-text="card.title" class="text-center"></v-list-item-subtitle>
+              <v-list-item-subtitle v-text="category.name" class="text-center"></v-list-item-subtitle>
             </v-list-item-content>
-            <v-list-item-icon>
-              <v-icon v-text="card.icon" :color="card.color"></v-icon>
-            </v-list-item-icon>
+            <!--<v-list-item-icon>-->
+              <!--<v-icon v-text="card.icon" :color="card.color"></v-icon>-->
+            <!--</v-list-item-icon>-->
           </v-list-item>
         </v-card>
       </v-col>
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
+
   export default {
     name: 'Dashboard',
 
@@ -43,21 +45,14 @@
     },
 
     data: () => ({
-      cards: [
-        { title: 'Foods', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', icon: 'mdi-tree', link: 'category1', color: 'primary'},
-        { title: 'Beverage', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', icon: 'mdi-cup', link: 'category2', color: 'secondary'},
-        { title: 'Grocery', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', icon: 'mdi-coffee', link: 'category3', color: 'warning'},
-        { title: 'Utility', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', icon: 'mdi-fish', link: 'category1', color: 'error'},
-        { title: 'Household', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', icon: 'mdi-leaf', link: 'category2', color: 'teal'},
-        { title: 'Kitchen', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', icon: 'mdi-broom', link: 'category3', color: 'amber'},
-        { title: 'Foods 1', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', icon: 'mdi-tree', link: 'category1', color: 'primary'},
-        { title: 'Beverage 1', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', icon: 'mdi-cup', link: 'category2', color: 'secondary'},
-        { title: 'Grocery 1', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', icon: 'mdi-coffee', link: 'category3', color: 'warning'},
-        { title: 'Utility 1', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', icon: 'mdi-fish', link: 'category1', color: 'error'},
-        { title: 'Household 1', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', icon: 'mdi-leaf', link: 'category2', color: 'teal'},
-        { title: 'Kitchen 1', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', icon: 'mdi-broom', link: 'category3', color: 'amber'},
-      ],
+
     }),
+
+    computed: {
+      ...mapGetters({
+        categories: 'bootstrap/getCategories'
+      })
+    }
 
 
   }
