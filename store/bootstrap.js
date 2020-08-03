@@ -17,7 +17,7 @@ export const mutations = {
 export const actions = {
   async fetchCategories ({$axios}) {
     console.log('fetch')
-    await $axios.setHeader('X-Company-Id', '1')
-    let r = await $axios.get('https://reqres.in/api/users/23')
+    await this.$axios.setHeader('X-Company-Id', '1')
+    let r = await this.$axios.get('http://dev.isalebd.com/api/v1/layout')
   }
 }
