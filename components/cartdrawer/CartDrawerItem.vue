@@ -7,18 +7,18 @@
       <v-btn icon x-small @click="removeFromCart(item)"><v-icon color="warning">mdi-chevron-down</v-icon></v-btn>
     </v-row>
 
-    <v-list-item-avatar size="30" tile>
+    <v-list-item-avatar size="30" tile class="pr-1">
       <v-img :src="item.imageUrl"></v-img>
     </v-list-item-avatar>
 
     <v-list-item-content>
       <v-list-item-subtitle class="cart-drawer-item-content-title">{{item.name}}</v-list-item-subtitle>
-      <v-list-item-subtitle class="cart-drawer-item-content-subtitle"><v-icon x-small>mdi-currency-bdt</v-icon>{{item.price}} / {{item.context}}</v-list-item-subtitle>
+      <v-list-item-subtitle class="cart-drawer-item-content-subtitle"><v-icon x-small>mdi-currency-bdt</v-icon>{{item.price}} / {{item.unit}}</v-list-item-subtitle>
     </v-list-item-content>
 
     <v-row align="center" justify="end" class="cart-drawer-item-right-row">
       <span><v-icon x-small>mdi-currency-bdt</v-icon></span>
-      <span class="subheading mr-2 font-weight-light">{{item.unitPrice * item.count}}</span>
+      <span class="subheading mr-2 font-weight-light">{{item.price * item.count}}</span>
       <v-btn icon x-small @click="discardFromCart(item)"><v-icon  color="error">mdi-close</v-icon></v-btn>
     </v-row>
   </v-list-item>
@@ -56,3 +56,11 @@
     }
   }
 </script>
+
+<style>
+  .cart-drawer-item-action-row { max-width: 30px;display: grid; }
+  .cart-drawer-item-action-count { font-size: .75rem; }
+  .cart-drawer-item-content-title { font-size: .8rem; }
+  .cart-drawer-item-content-subtitle { font-size: .75rem; }
+  .cart-drawer-item-right-row { max-width: 80px; }
+</style>

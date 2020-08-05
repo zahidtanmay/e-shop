@@ -70,9 +70,17 @@
     name: 'AddressDialog',
 
     data: () => ({
+      name: '',
+      phone: '',
+      area: '',
+      address: '',
       rules: {
         required: value => !!value || 'Required.',
       },
+      areas: [
+        { area: 'Jatrabari', address: 'Dhaka, Bangladesh'},
+        { area: 'Banani', address: 'Dhaka, Bangladesh'}
+      ],
     }),
 
     computed: {

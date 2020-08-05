@@ -6,7 +6,7 @@
     <v-hover>
       <template v-slot:default="{ hover }">
         <v-card flat class="mx-auto" max-width="220px">
-          <v-img :src="itemDetails.imageUrl" height="180px" eager></v-img>
+          <v-img :src="itemDetails.imageUrl" width="210px" height="180px"></v-img>
 
           <v-card-text class="text-center">
             <div class="item-name-text mb-4">{{itemDetails.name}}</div>
