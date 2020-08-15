@@ -11,6 +11,6 @@ export default function ({ $axios, redirect }) {
 
   $axios.onError(error => {
     const code = parseInt(error.response && error.response.status)
-    console.log(code)
+    console.log(code, error.response)
   })
 }

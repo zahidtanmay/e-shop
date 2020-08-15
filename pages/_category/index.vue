@@ -28,6 +28,8 @@
   export default {
     name: 'CategoryRoot',
 
+    auth: false,
+
     head () {
       return {
         title: this.$route.params.category,

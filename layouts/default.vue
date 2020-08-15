@@ -47,3 +47,8 @@
 
   }
 </script>
+
+<style>
+  .v-application { font-family: Poppins, sans-serif !important; }
+  .v-btn:focus { outline:0; }
+</style>

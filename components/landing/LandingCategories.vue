@@ -4,25 +4,40 @@
       Our Product categories
     </div>
 
-    <v-row dense>
-      <v-col
-        v-for="category in categories"
-        :key="category.name"
-        :cols="12"
-        md="4"
-      >
-        <v-card outlined nuxt :to="category.name">
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-subtitle v-text="category.name" class="text-center"></v-list-item-subtitle>
-            </v-list-item-content>
-            <!--<v-list-item-icon>-->
-            <!--<v-icon v-text="card.icon" :color="card.color"></v-icon>-->
-            <!--</v-list-item-icon>-->
-          </v-list-item>
+    <!--<v-row justify-center>-->
+      <!--<v-col-->
+        <!--v-for="category in categories"-->
+        <!--:key="category.name"-->
+        <!--:cols="12"-->
+        <!--md="4"-->
+      <!--&gt;-->
+        <!--<v-card outlined nuxt :to="category.name">-->
+          <!--<v-list-item>-->
+            <!--<v-list-item-content>-->
+              <!--<v-list-item-subtitle v-text="category.name" class="text-center"></v-list-item-subtitle>-->
+            <!--</v-list-item-content>-->
+            <!--&lt;!&ndash;<v-list-item-icon>&ndash;&gt;-->
+            <!--&lt;!&ndash;<v-icon v-text="card.icon" :color="card.color"></v-icon>&ndash;&gt;-->
+            <!--&lt;!&ndash;</v-list-item-icon>&ndash;&gt;-->
+          <!--</v-list-item>-->
+        <!--</v-card>-->
+      <!--</v-col>-->
+
+      <v-card class="d-flex justify-center" flat tile>
+
+        <v-card
+          v-for="category in categories"
+          :key="category.name"
+          class="pa-2 ma-1 text-center"
+          outlined hover ripple
+          :to="category.name"
+        >
+
+          <div class="text-center">{{category.name}}</div>
         </v-card>
-      </v-col>
-    </v-row>
+
+      </v-card>
+    <!--</v-row>-->
   </div>
 </template>
 

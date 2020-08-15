@@ -16,6 +16,7 @@
                 :src="item.imageUrl"
                 reverse-transition="fade-transition"
                 transition="fade-transition"
+                hide-delimeter
               ></v-carousel-item>
             </v-carousel>
           </v-col>

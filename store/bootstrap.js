@@ -18,7 +18,7 @@ export const actions = {
 
   async fetchLayout (context) {
     await this.$axios.setHeader('X-Company-Id', '1')
-    let {data} = await this.$axios.get('/layout')
+    let { data } = await this.$axios.get('/layout')
     context.commit('SET_CATEGORIES', data.data.categories)
     context.commit('SET_COMPANY', data.data.company)
   }

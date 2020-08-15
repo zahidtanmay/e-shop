@@ -1,13 +1,22 @@
 <template>
 
   <div>
-    <div class="headline text-center my-8">
+    <div class="headline text-center my-12">
       Explore
     </div>
     <v-row>
 
       <v-col md="6">
-        <v-card flat outlined class="text-center" ripple nuxt to="/deals" hover>
+        <v-card
+                outlined
+                class="text-center"
+                nuxt
+                to="/deals"
+                hover
+                ripple
+                width="300"
+                height="300"
+        >
 
           <v-card-title class="text-center" justify="center">
             <span class="headline font-weight-light">Deals</span>
@@ -22,8 +31,18 @@
           </v-card-text>
         </v-card>
       </v-col>
+
+
       <v-col md="6">
-        <v-card flat outlined class="text-center" ripple nuxt to="/popular" hover>
+        <v-card outlined
+                class="text-center"
+                nuxt
+                to="/popular"
+                hover
+                ripple
+                width="300"
+                height="300"
+        >
 
           <v-card-title>
             <span class="headline font-weight-light">Popular</span>

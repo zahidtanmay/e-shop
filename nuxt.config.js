@@ -25,9 +25,9 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Montserrat:400,500,500i,600,700,800'},
-      {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Material+Icons'},
-      {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Material+Icons'}
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Material+Icons' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Material+Icons' }
     ]
   },
   /*
@@ -48,7 +48,7 @@ export default {
   plugins: [
     '~/plugins/vue-lodash',
     { src: '~/plugins/route', ssr: false },
-    '~/plugins/axios',
+    { src: '~/plugins/axios', ssr: true },
     { src: '~/plugins/vuex-persist', ssr: false }
   ],
   /*
@@ -71,13 +71,18 @@ export default {
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt/content
     '@nuxt/content',
+    '@nuxtjs/toast',
+    '@nuxtjs/auth',
+
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: process.env.BASE_URL
+    baseURL: process.env.BASE_URL,
+    proxyHeaders: false,
+    credentials: false
   },
   /*
   ** Content module configuration
@@ -127,13 +132,38 @@ export default {
     height: '3px',
     failedColor: 'red',
     throttle: 200,
-
   },
 
   router: {
     linkActiveClass: 'active-link',
     linkExactActiveClass: 'exact-active-link',
-    middleware: ['nav']
+    middleware: ['auth']
   },
+
+
+
+  auth: {
+    token: {
+      prefix: 'shop_token'
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/verify-otp', method: 'post', propertyName: 'token' },
+          logout: { url: '/logout', method: 'post' },
+          user: false
+        },
+        // tokenRequired: true,
+        tokenType: 'Bearer',
+        // globalToken: true,
+        autoFetchUser: false
+      }
+    }
+  },
+
+  toast: {
+    position: 'top-right',
+    duration: 4000,
+  }
 
 }
