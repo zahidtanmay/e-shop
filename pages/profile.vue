@@ -29,15 +29,19 @@
 
     }),
 
+    middleware({ store, redirect }) {
+      // If the user is not authenticated
+      if (!store.state.auth.loggedIn) {
+        console.log('profile')
+        return redirect('/login')
+      }
+    },
+
     components: {
       AddressDialog,
       ProfileInfo,
       AddressBook
     },
-
-    methods: {
-
-    }
 
   }
 </script>

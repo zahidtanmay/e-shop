@@ -8,7 +8,12 @@ export default ({ app }) => {
     // })
 
     app.router.afterEach((to, from) => {
-      // console.log(to, from)
+      if(app.$auth.loggedIn && to.name === 'login')
+      {
+        console.log('hello before redirect')
+        // return app.redirect('/')
+      }
+      console.log(to, from)
     })
   }
 }

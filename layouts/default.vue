@@ -21,6 +21,7 @@
   import CartDrawer from '~/components/layout/CartDrawer.vue'
 
   export default {
+    name: 'DefaultLayout',
 
     props: {
       source: String,
@@ -36,15 +37,6 @@
     data: () => ({
 
     }),
-
-
-
-    mounted () {
-      console.log('asdfasdf')
-    },
-
-
-
   }
 </script>
 

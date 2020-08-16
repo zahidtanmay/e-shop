@@ -18,19 +18,6 @@
   export default {
     name: 'LogIn',
 
-
-    data: () => ({
-      email: '',
-      password: '',
-      show: false,
-    }),
-
-    methods: {
-      async userLogin (scope) {
-
-      },
-    },
-
     components: {
       LoginForm
     }

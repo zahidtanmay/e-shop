@@ -41,6 +41,7 @@
             required
             label="OTP"
             type="number"
+            v-model="otp"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -87,19 +88,30 @@
 
     computed: {
 
+
+
     },
 
     methods: {
-      sendOtp() {
-        this.$refs.form.validate()
-        this.val++
-        this.$store.dispatch('profile/sendOtp', this.mobile)
-        this.startTimer()
+      async sendOtp() {
+        await this.$refs.form.validate()
+        let r = await this.$store.dispatch('profile/sendOtp', this.mobile)
+        if (r) {
+          this.val++
+          this.startTimer()
+        }
+
       },
 
       verify() {
-        this.val++
-        this.$store.dispatch('profile/verifyOtp', { mobile: `880${this.mobile}`, otp: this.otp })
+        let r = this.$store.dispatch('profile/verifyOtp', { mobile: `880${this.mobile}`, otp: this.otp })
+        if(r) {
+          this.val = 0
+          clearInterval(this.interval)
+          this.$store.commit('component/setLoginDialog', false)
+          this.otp = ''
+          this.mobile = ''
+        }
       },
 
       startTimer() {

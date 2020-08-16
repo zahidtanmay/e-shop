@@ -27,7 +27,6 @@
   import CategoryTitle from '~/components/category/Title.vue'
   export default {
     name: 'CategoryRoot',
-
     auth: false,
 
     head () {

@@ -14,105 +14,57 @@
     <v-row justify="center">
       <v-col md="8">
 
-        <v-stepper v-model="e6" vertical alt-labels class="checkout-stepper">
-          <v-stepper-step :complete="e6 > 1" step="1" editable>
-            <v-card-title class="title">
-              <span class="mr-4"><v-icon large>mdi-map-marker</v-icon></span>Delivery Address
-            </v-card-title>
-          </v-stepper-step>
+        <v-card
+          flat
+          class="mx-auto"
+          max-width="500"
+        >
+          <v-card-title class="title font-weight-regular justify-space-between">
+            <span>{{ currentTitle }}</span>
+            <v-avatar
+              color="primary lighten-2"
+              class="subheading white--text"
+              size="24"
+              v-text="step"
+            ></v-avatar>
+          </v-card-title>
+
+          <v-window v-model="step">
+            <v-window-item :value="1">
+              <Address/>
+            </v-window-item>
+
+            <v-window-item :value="2">
+              <DeliveryTime/>
+            </v-window-item>
+
+            <v-window-item :value="3">
+              <OrderConfirm/>
+            </v-window-item>
+          </v-window>
+
           <v-divider></v-divider>
 
-          <v-stepper-content step="1" class="step-1">
-            <v-row justify="center">
-              <v-col md="8" >
+          <v-card-actions>
+            <v-btn
+              :disabled="step === 1"
+              text
+              @click="step--"
+            >
+              Back
+            </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn
+              :disabled="step === 3"
+              color="primary"
+              depressed
+              @click="step++"
+            >
+              Next
+            </v-btn>
+          </v-card-actions>
+        </v-card>
 
-                <v-text-field
-                  outlined
-                  v-model="name"
-                  label="Name"
-                  :rules="[rules.required]"
-                  validate-on-blur
-                  persistent-hint
-                ></v-text-field>
-
-                <v-text-field
-                  outlined
-                  v-model="phone"
-                  label="Phone"
-                  :rules="[rules.required]"
-                  validate-on-blur
-                  persistent-hint
-                ></v-text-field>
-
-                <v-select
-                  outlined
-                  :items="areas"
-                  v-model="area"
-                  item-text="name"
-                  item-value="xml"
-                  label="Area"
-                  return-object
-                  :rules="[rules.required]"
-                  validate-on-blur
-                  persistent-hint
-                ></v-select>
-
-                <v-textarea
-                  outlined
-                  name="address"
-                  label="Address"
-                  v-model="address"
-                  rows="3"
-                  :rules="[rules.required]"
-                  validate-on-blur
-                  persistent-hint
-                ></v-textarea>
-              </v-col>
-            </v-row>
-
-            <v-btn color="primary" @click="e6 = 2">Continue</v-btn>
-            <v-btn text>Cancel</v-btn>
-          </v-stepper-content>
-
-          <v-stepper-step :complete="e6 > 2" step="2">
-            <v-card-title class="title">
-              <span class="mr-4"><v-icon large>mdi-clock</v-icon></span>Preferred Delivery Timings
-            </v-card-title>
-          </v-stepper-step>
-
-          <v-stepper-content step="2">
-            <v-row align="center">
-              <v-col cols="6">
-                <v-select
-                  v-model="select"
-                  :items="items"
-                  item-text="state"
-                  item-value="abbr"
-                  label="Select"
-                  persistent-hint
-                  return-object
-                  single-line
-                ></v-select>
-              </v-col>
-
-              <v-col cols="6">
-                <v-select
-                  v-model="select"
-                  :items="items"
-                  item-text="state"
-                  item-value="abbr"
-                  label="Select"
-                  persistent-hint
-                  return-object
-                  single-line
-                ></v-select>
-              </v-col>
-            </v-row>
-            <v-btn color="primary" @click="e6 = 3">Continue</v-btn>
-            <v-btn text>Cancel</v-btn>
-          </v-stepper-content>
-
-        </v-stepper>
       </v-col>
     </v-row>
 
@@ -122,20 +74,42 @@
 
 
 <script>
+  import Address from '~/components/checkout/Address'
+  import DeliveryTime from '~/components/checkout/DeliveryTime'
+  import OrderConfirm from '~/components/checkout/OrderConfirm'
+
   export default {
     name: 'CheckoutForm',
+
+    components: {
+      Address,
+      DeliveryTime,
+      OrderConfirm
+    },
+
+    middleware({ store, redirect }) {
+      // If the user is not authenticated
+      if (!store.state.auth.loggedIn) {
+        console.log('checkout')
+        return redirect('/login')
+      }
+    },
+
     data: () => ({
+      step: 1,
+      steps: ['Address', 'Select Delivery Date Time', 'Confirm'],
       e6: 1,
-      name: '',
-      phone: '',
-      area: '',
-      address: '',
-      areas: [],
-      items: [],
-      rules: {
-        required: value => !!value || 'Required.',
+    }),
+
+    computed: {
+      currentTitle () {
+        switch (this.step) {
+          case 1: return 'Address'
+          case 2: return 'Select Delivery Date Time'
+          default: return 'Confirm'
+        }
       },
-    })
+    },
   }
 </script>
 

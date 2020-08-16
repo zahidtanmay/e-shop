@@ -81,8 +81,6 @@ export default {
   */
   axios: {
     baseURL: process.env.BASE_URL,
-    proxyHeaders: false,
-    credentials: false
   },
   /*
   ** Content module configuration
@@ -137,26 +135,25 @@ export default {
   router: {
     linkActiveClass: 'active-link',
     linkExactActiveClass: 'exact-active-link',
-    middleware: ['auth']
   },
 
 
 
   auth: {
+    plugins: [ '~/plugins/auth.js' ],
     token: {
       prefix: 'shop_token'
     },
     strategies: {
       local: {
         endpoints: {
-          login: { url: '/verify-otp', method: 'post', propertyName: 'token' },
-          logout: { url: '/logout', method: 'post' },
+          login: { url: '/verify-otp', method: 'post', propertyName: false },
+          logout: false,
           user: false
         },
-        // tokenRequired: true,
-        tokenType: 'Bearer',
-        // globalToken: true,
-        autoFetchUser: false
+        tokenType: '',
+        autoFetchUser: false,
+        globalToken: false,
       }
     }
   },

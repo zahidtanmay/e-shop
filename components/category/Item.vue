@@ -5,7 +5,7 @@
 
     <v-hover>
       <template v-slot:default="{ hover }">
-        <v-card flat class="mx-auto" max-width="220px">
+        <v-card flat class="mx-auto" max-width="220px" height="320px">
           <v-img :src="itemDetails.imageUrl" width="210px" height="180px"></v-img>
 
           <v-card-text class="text-center">
