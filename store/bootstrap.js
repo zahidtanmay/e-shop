@@ -1,25 +1,35 @@
 export const state = () => ({
   categories: [],
-  company: {}
+  company: {},
+  areas: [],
 
 })
 
 export const getters = {
   getCategories: state => state.categories,
-  getCompanyDetails: state => state.company
+  getCompanyDetails: state => state.company,
+  getAreas: state => state.areas
 }
 
 export const mutations = {
   SET_CATEGORIES: (state, value) => { state.categories = value },
-  SET_COMPANY: (state, value) => { state.company = value }
+  SET_COMPANY: (state, value) => { state.company = value },
+  SET_AREAS: (state, value) => { state.areas = value },
+
 }
 
 export const actions = {
 
   async fetchLayout (context) {
-    await this.$axios.setHeader('X-Company-Id', '1')
     let { data } = await this.$axios.get('/layout')
     context.commit('SET_CATEGORIES', data.data.categories)
     context.commit('SET_COMPANY', data.data.company)
+  },
+
+  async fetchAreas (context) {
+    const token = this.$auth.getToken('local')
+    let { data } = await this.$axios.get(`/areas?cols=*&token=${token}`)
+    context.commit('SET_AREAS', data.data)
   }
+
 }

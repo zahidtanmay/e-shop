@@ -29,12 +29,15 @@
 
     }),
 
-    middleware({ store, redirect }) {
+    async middleware({ store, redirect }) {
       // If the user is not authenticated
       if (!store.state.auth.loggedIn) {
         console.log('profile')
         return redirect('/login')
       }
+
+      store.dispatch('profile/fetchLocations')
+      store.dispatch('bootstrap/fetchAreas')
     },
 
     components: {

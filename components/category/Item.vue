@@ -21,7 +21,7 @@
               <div class="display-2 text-center" v-else>Add to cart</div>
 
               <div class="text-center">
-                <v-btn small depressed color="grey" class="item-overlay-button mt-16" width="100%" v-if="hover" @click="setItemDetails(itemDetails)">
+                <v-btn small depressed color="grey" class="item-overlay-button mt-16" width="100%" v-if="hover" @click="setItemDetails(itemDetails, count)">
                   view details
                 </v-btn>
               </div>
@@ -76,7 +76,8 @@
 
     methods: {
 
-      setItemDetails (item) {
+      setItemDetails (item, count) {
+        item.count = count
         this.$store.commit('product/SET_ACTIVE_PRODUCT', item)
         this.$store.commit('component/setItemDetailsDialog', true)
       },

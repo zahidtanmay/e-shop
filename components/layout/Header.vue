@@ -6,7 +6,7 @@
 
     <nuxt-link to="/" class="main-logo black--text">
       <v-img
-        :src="this.$store.state.bootstrap.company.logo"
+        :src="company.logo"
         contain
         max-height="60px"
         width="80px"
@@ -22,36 +22,33 @@
     <v-spacer></v-spacer>
 
     <template v-if="this.$store.state.auth.loggedIn">
-      <!--<div>-->
-        <!--{{ this.$store.state.auth.user.name}}-->
-        <!--<v-menu offset-y min-width="100" auto>-->
+        <v-menu
+          bottom
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              icon
+              v-bind="attrs"
+              v-on="on"
+            >
+              <v-icon>mdi-account</v-icon>
+            </v-btn>
+          </template>
 
-          <!--<template v-slot:activator="{ on, attrs }">-->
+          <v-list>
+            <template v-for="(item, index) in sessions">
+              <v-list-item
+                :key="index"
+                @click="sessionTo(item.link)"
+              >
+                <v-list-item-title >{{ item.title }}</v-list-item-title>
 
-            <!--<v-btn-->
-              <!--icon-->
-              <!--v-bind="attrs"-->
-              <!--v-on="on"-->
-            <!--&gt;-->
-              <!--<v-icon>mdi-account</v-icon>-->
-            <!--</v-btn>-->
-
-          <!--</template>-->
-
-          <!--<v-list>-->
-            <!--<template v-for="(item, index) in sessions">-->
-              <!--<v-list-item-->
-                <!--:key="index"-->
-                <!--@click="sessionTo(item.link)"-->
-              <!--&gt;-->
-                <!--<v-list-item-title >{{ item.title }}</v-list-item-title>-->
-
-              <!--</v-list-item>-->
-              <!--<v-divider class="my-0"></v-divider>-->
-            <!--</template>-->
-          <!--</v-list>-->
-        <!--</v-menu>-->
-      <!--</div>-->
+              </v-list-item>
+              <v-divider class="my-0"></v-divider>
+            </template>
+          </v-list>
+        </v-menu>
+      <!--&lt;!&ndash;{{ this.$store.state.auth.user.name}}&ndash;&gt;-->
     </template>
 
     <template v-else>
@@ -60,7 +57,6 @@
       </div>
 
       <v-menu
-        left
         bottom
       >
         <template v-slot:activator="{ on, attrs }">
@@ -111,6 +107,7 @@
 
     computed: {
       ...mapGetters({
+        company: 'bootstrap/getCompanyDetails',
         drawer: 'component/getNavDrawer',
       }),
 

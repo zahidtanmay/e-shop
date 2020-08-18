@@ -88,7 +88,8 @@
         const user = {
           name: this.user.name || this.$store.state.auth.user.name,
           phoneNumber: this.user.phone || this.$store.state.auth.user.phoneNumber,
-          email: this.user.email || this.$store.state.auth.user.email
+          email: this.user.email || this.$store.state.auth.user.email,
+          customerId: this.$store.state.auth.user.id
         }
 
         this.$store.dispatch('profile/updateProfile', user)

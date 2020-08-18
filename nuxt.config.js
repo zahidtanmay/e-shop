@@ -82,6 +82,18 @@ export default {
   */
   axios: {
     baseURL: process.env.BASE_URL,
+    headers: {
+      common: {
+        'Accept': 'application/json, text/plain, */*',
+        'X-Company-Id': '1'
+      },
+      delete: {},
+      get: {},
+      head: {},
+      post: {},
+      put: {},
+      patch: {}
+    }
   },
   /*
   ** Content module configuration
@@ -154,7 +166,6 @@ export default {
           user: false
         },
         tokenType: '',
-        autoFetchUser: false,
         globalToken: false,
       }
     }
