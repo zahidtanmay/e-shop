@@ -1,8 +1,10 @@
 <template>
   <v-dialog
     v-model="dialog"
-    max-width="800"
+    width="900"
+    height="1000"
   >
+
     <v-card >
       <v-card-title>
         <v-spacer />
@@ -11,14 +13,9 @@
       <v-container>
         <v-row>
           <v-col md="6">
-            <v-carousel height="450">
-              <v-carousel-item
-                :src="item.imageUrl"
-                reverse-transition="fade-transition"
-                transition="fade-transition"
-                hide-delimeter
-              ></v-carousel-item>
-            </v-carousel>
+
+            <Zoomer :imgSrc="item.imageUrl" :key="item.name" />
+
           </v-col>
 
           <v-col md="6"><v-card-text>
@@ -35,9 +32,14 @@
 
 <script>
   import {mapGetters} from 'vuex'
+  import Zoomer from './Zoomer'
 
   export default {
     name: 'ItemDetailsDialog',
+
+    components: {
+      Zoomer
+    },
 
     computed: {
       ...mapGetters({
@@ -52,17 +54,11 @@
         set (val) {
           this.$store.commit('component/setItemDetailsDialog', val)
         }
-      }
-    },
-
-    components: {
+      },
 
     },
 
-    data () {
-      return {
-
-      }
+    methods: {
     }
 
   }
@@ -70,4 +66,5 @@
 
 <style>
   .item-details-description { color: rgba(0,0,0,1);}
+
 </style>

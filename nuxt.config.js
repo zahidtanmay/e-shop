@@ -47,9 +47,10 @@ export default {
   */
   plugins: [
     '~/plugins/vue-lodash',
+    { src: '~/plugins/zoomer', ssr: false },
     { src: '~/plugins/route', ssr: false },
     { src: '~/plugins/axios', ssr: true },
-    { src: '~/plugins/vuex-persist', ssr: false }
+    { src: '~/plugins/vuex-persist', ssr: false },
   ],
   /*
   ** Auto import components
@@ -121,6 +122,7 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+    vendor:[ 'vue-product-zoomer'],
     plugins: [
     ]
   },

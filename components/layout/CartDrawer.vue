@@ -16,11 +16,11 @@
     </v-list>
 
 
-    <template v-slot:append>
+    <!--<template v-slot:append>-->
 
       <CartDrawerBottom/>
 
-    </template>
+    <!--</template>-->
 
 
   </v-navigation-drawer>

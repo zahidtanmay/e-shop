@@ -1,8 +1,18 @@
 <template>
+
   <v-app-bar app clipped-left clipped-right flat class="main-nav-bar">
+
     <v-app-bar-nav-icon @click="setNavDrawer"></v-app-bar-nav-icon>
+
     <nuxt-link to="/" class="main-logo black--text">
-      <span class="title ml-3 mr-5">E&nbsp;<span class="font-weight-light">Shop</span></span>
+      <v-img
+        :src="this.$store.state.bootstrap.company.logo"
+        contain
+        max-height="60px"
+        width="80px"
+        class="mx-8"
+      ></v-img>
+      <!--<span class="title ml-3 mr-5">E&nbsp;<span class="font-weight-light">Shop</span></span>-->
     </nuxt-link>
 
     <v-text-field solo-inverted flat hide-details label="Search" prepend-inner-icon="search"></v-text-field>
@@ -12,35 +22,36 @@
     <v-spacer></v-spacer>
 
     <template v-if="this.$store.state.auth.loggedIn">
-      <div>
+      <!--<div>-->
         <!--{{ this.$store.state.auth.user.name}}-->
-        <v-menu offset-y min-width="100" auto>
+        <!--<v-menu offset-y min-width="100" auto>-->
 
-          <template v-slot:activator="{ on, attrs }">
+          <!--<template v-slot:activator="{ on, attrs }">-->
 
-            <v-btn
-              icon
-              v-bind="attrs"
-              v-on="on"
-            >
-              <v-icon>mdi-account</v-icon>
-            </v-btn>
+            <!--<v-btn-->
+              <!--icon-->
+              <!--v-bind="attrs"-->
+              <!--v-on="on"-->
+            <!--&gt;-->
+              <!--<v-icon>mdi-account</v-icon>-->
+            <!--</v-btn>-->
 
-          </template>
-          <v-list>
-            <template v-for="(item, index) in sessions">
-              <v-list-item
-                :key="index"
-                @click="sessionTo(item.link)"
-              >
-                <v-list-item-title >{{ item.title }}</v-list-item-title>
+          <!--</template>-->
 
-              </v-list-item>
-              <v-divider class="my-0"></v-divider>
-            </template>
-          </v-list>
-        </v-menu>
-      </div>
+          <!--<v-list>-->
+            <!--<template v-for="(item, index) in sessions">-->
+              <!--<v-list-item-->
+                <!--:key="index"-->
+                <!--@click="sessionTo(item.link)"-->
+              <!--&gt;-->
+                <!--<v-list-item-title >{{ item.title }}</v-list-item-title>-->
+
+              <!--</v-list-item>-->
+              <!--<v-divider class="my-0"></v-divider>-->
+            <!--</template>-->
+          <!--</v-list>-->
+        <!--</v-menu>-->
+      <!--</div>-->
     </template>
 
     <template v-else>
@@ -76,9 +87,8 @@
     </template>
 
 
-
-
     <login-dialog></login-dialog>
+
   </v-app-bar>
 </template>
 
