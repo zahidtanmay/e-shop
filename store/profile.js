@@ -1,3 +1,4 @@
+import Vue from 'vue'
 export const state = () => ({
   locations: [],
   activeAddress: {}
@@ -12,10 +13,8 @@ export const mutations = {
   SET_LOCATIONS: (state, value) => { state.locations = [...value] },
   ADD_LOCATION: (state, value) => { state.locations.push(value) },
   UPDATE_LOCATIONS: (state, value) => {
-    console.log(value)
     const id = state.locations.findIndex(item => item.id === value.id)
-    Object.assign(state.locations[id], {})
-    Object.assign(state.locations[id], location)
+    Vue.set(state.locations, id, value)
   },
   SET_ACTIVE_ADDRESS: (state, value) => { state.activeAddress = value },
 }

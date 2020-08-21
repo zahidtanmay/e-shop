@@ -2,31 +2,22 @@
   <v-col
     cols="12"
   >
-    <div
-      class="font-weight-light mt-1"
-      style="font-size: 25px"
-    >
-      Checkout
-    </div>
+    <div class="font-weight-light mt-1" style="font-size: 25px">Checkout</div>
 
 
 
     <v-row justify="center">
       <v-col md="8">
 
-        <v-card
-          flat
-          class="mx-auto"
-          max-width="500"
-        >
-          <v-card-title class="title font-weight-regular justify-space-between">
-            <span>{{ currentTitle }}</span>
-            <v-avatar
-              color="primary lighten-2"
-              class="subheading white--text"
-              size="24"
-              v-text="step"
-            ></v-avatar>
+        <v-card flat class="text-center">
+          <v-card-title class="title font-weight-regular text-center" justify="center" align="center">
+            {{ currentTitle }}
+            <!--<v-avatar-->
+              <!--color="primary lighten-2"-->
+              <!--class="subheading white&#45;&#45;text"-->
+              <!--size="24"-->
+              <!--v-text="step"-->
+            <!--&gt;</v-avatar>-->
           </v-card-title>
 
           <v-window v-model="step">
@@ -54,8 +45,9 @@
               Back
             </v-btn>
             <v-spacer></v-spacer>
+
             <v-btn
-              :disabled="step === 3"
+              :disabled="(step === 1 && !checkoutLocation) || step === 3"
               color="primary"
               depressed
               @click="step++"
@@ -68,15 +60,19 @@
       </v-col>
     </v-row>
 
+    <AddressDialog/>
+
   </v-col>
 
 </template>
 
 
 <script>
+  import {mapGetters} from 'vuex'
   import Address from '~/components/checkout/Address'
   import DeliveryTime from '~/components/checkout/DeliveryTime'
   import OrderConfirm from '~/components/checkout/OrderConfirm'
+  import AddressDialog from '~/components/address/AddressDialog.vue'
 
   export default {
     name: 'CheckoutForm',
@@ -84,10 +80,15 @@
     components: {
       Address,
       DeliveryTime,
-      OrderConfirm
+      OrderConfirm,
+      AddressDialog
     },
 
     middleware({ store, redirect }) {
+      // If the user is not authenticated
+      store.dispatch('checkout/fetchLedgers')
+      store.dispatch('profile/fetchLocations')
+      store.dispatch('bootstrap/fetchAreas')
     },
 
     data: () => ({
@@ -97,11 +98,15 @@
     }),
 
     computed: {
+      ...mapGetters({
+        checkoutLocation: 'checkout/getCheckoutLocation'
+      }),
+
       currentTitle () {
         switch (this.step) {
           case 1: return 'Address'
           case 2: return 'Select Delivery Date Time'
-          default: return 'Confirm'
+          default: return 'Order Summary'
         }
       },
     },
