@@ -74,7 +74,6 @@ export default {
     '@nuxt/content',
     '@nuxtjs/toast',
     '@nuxtjs/auth',
-
   ],
   /*
   ** Axios module configuration

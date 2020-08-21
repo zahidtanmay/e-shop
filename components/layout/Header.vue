@@ -21,38 +21,41 @@
 
     <v-spacer></v-spacer>
 
-    <template v-if="this.$store.state.auth.loggedIn">
-      <div><v-menu
-        bottom
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            v-bind="attrs"
-            v-on="on"
-            icon
-          >
-            <v-icon>mdi-account</v-icon>
-          </v-btn>
-        </template>
-        <v-list>
-          <v-list-item
-            v-for="(item, index) in sessions"
-            :key="index"
-            @click="sessionTo(item.link)"
-          >
-            <v-list-item-title >{{ item.title }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu></div>
+    <!--<no-ssr>-->
+      <!--<template v-if="loggedIn">-->
+        <!--<div><v-menu-->
+          <!--bottom-->
+        <!--&gt;-->
+          <!--<template v-slot:activator="{ on, attrs }">-->
+            <!--<v-btn-->
+              <!--v-bind="attrs"-->
+              <!--v-on="on"-->
+              <!--icon-->
+            <!--&gt;-->
+              <!--<v-icon>mdi-account</v-icon>-->
+            <!--</v-btn>-->
+          <!--</template>-->
+          <!--<v-list>-->
+            <!--<v-list-item-->
+              <!--v-for="(item, index) in sessions"-->
+              <!--:key="index"-->
+              <!--@click="sessionTo(item.link)"-->
+            <!--&gt;-->
+              <!--<v-list-item-title >{{ item.title }}</v-list-item-title>-->
+            <!--</v-list-item>-->
+          <!--</v-list>-->
+        <!--</v-menu></div>-->
 
-    </template>
+      <!--</template>-->
 
-    <template v-else>
-      <div>
-        <v-btn color="error" dark large tile outlined @click="setLoginDialog" class="my-2 d-none d-md-flex">Sign In</v-btn>
-        <v-btn icon @click="setLoginDialog" class="d-md-none"><v-icon>mdi-login</v-icon></v-btn>
-      </div>
-    </template>
+      <!--<template v-else>-->
+        <!--<div>-->
+          <!--<v-btn color="error" dark large tile outlined @click="setLoginDialog" class="my-2 d-none d-md-flex">Sign In</v-btn>-->
+          <!--<v-btn icon @click="setLoginDialog" class="d-md-none"><v-icon>mdi-login</v-icon></v-btn>-->
+        <!--</div>-->
+      <!--</template>-->
+
+    <!--</no-ssr>-->
 
 
     <login-dialog></login-dialog>

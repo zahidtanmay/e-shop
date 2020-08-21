@@ -30,7 +30,7 @@
                 </v-btn>
               </v-col>
 
-              <v-col xs="5" class="py-0 text-center">{{item.count}}</v-col>
+              <v-col xs="5" class="py-0 text-center">{{item.quantity}}</v-col>
 
               <v-col xs="3" class="py-0">
                 <v-btn depressed small width="100%" @click="addToCart">
@@ -80,11 +80,11 @@
 
     methods: {
       async addToCart () {
-        await this.$store.dispatch('cart/addToCart', { item: this.item, count: this.item.count, cartPre: this.cartPre })
+        await this.$store.dispatch('cart/addToCart', { item: this.item, quantity: this.item.quantity, cartPre: this.cartPre })
       },
 
       async removeFromCart () {
-        await this.$store.dispatch('cart/removeFromCart', { item: this.item, count: this.item.count, cartPre: this.cartPre })
+        await this.$store.dispatch('cart/removeFromCart', { item: this.item, quantity: this.item.quantity, cartPre: this.cartPre })
       },
     }
 

@@ -29,6 +29,7 @@
     name: 'MyOrders',
 
     middleware({ store, redirect }) {
+      store.dispatch('orders/fetchOrders')
     },
 
     data: () => ({

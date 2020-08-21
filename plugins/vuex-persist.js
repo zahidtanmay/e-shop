@@ -1,9 +1,7 @@
-// import VuexPersistence from 'vuex-persist'
-//
-// export default ({ store }) => {
-//   window.onNuxtReady(() => {
-//     new VuexPersistence({
-//       key: 'persist-eshop'
-//     }).plugin(store);
-//   });
-// }
+import createPersistedState from 'vuex-persistedstate'
+
+export default ({store}) => {
+  createPersistedState({
+    key: 'yourkey',
+  })(store)
+}

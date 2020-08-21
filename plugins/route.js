@@ -2,7 +2,12 @@ const route = async function({ app }) {
   // Every time the route changes (fired on initialization too)
   if(!process.server) {
     console.log('route plugin')
-    app.store.dispatch('bootstrap/fetchLayout')
+    const version = await app.store.dispatch('bootstrap/fetchVersion')
+    const persistedVersion = localStorage.getItem('e-shop-version')
+    if (!persistedVersion || persistedVersion !== version) {
+      app.store.dispatch('bootstrap/fetchLayout')
+      app.store.dispatch('bootstrap/fetchCustomFields')
+    }
     // app.router.beforeEach((to, from) => {
     //   console.log(to, from)
     // })

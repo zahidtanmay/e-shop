@@ -16,8 +16,7 @@ export const mutations = {
 export const actions = {
 
   async fetchProduct (context) {
-    await this.$axios.setHeader('X-Company-Id', '1')
-    let {data} = await this.$axios.get('products?cols=name,id,price,imageUrl,stock,description,unit,categoryId')
+    let {data} = await this.$axios.get('products?cols=*')
     context.commit('SET_PRODUCTS', data.data)
   },
 }
