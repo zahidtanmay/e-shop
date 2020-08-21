@@ -1,52 +1,36 @@
 <template>
-  <v-col
-    cols="12"
-  >
+  <v-col cols="12">
+
     <div class="font-weight-light mt-1" style="font-size: 25px">Checkout</div>
 
-
-
     <v-row justify="center">
+
       <v-col md="8">
 
         <v-card flat class="text-center">
-          <v-card-title class="title font-weight-regular text-center" justify="center" align="center">
-            {{ currentTitle }}
-            <!--<v-avatar-->
-              <!--color="primary lighten-2"-->
-              <!--class="subheading white&#45;&#45;text"-->
-              <!--size="24"-->
-              <!--v-text="step"-->
-            <!--&gt;</v-avatar>-->
-          </v-card-title>
+
+          <v-card-title class="title font-weight-regular text-center" justify="center" align="center">{{ currentTitle }}</v-card-title>
 
           <v-window v-model="step">
-            <v-window-item :value="1">
-              <Address/>
-            </v-window-item>
 
-            <v-window-item :value="2">
-              <DeliveryTime/>
-            </v-window-item>
+            <v-window-item :value="1"><Address/></v-window-item>
 
-            <v-window-item :value="3">
-              <OrderConfirm/>
-            </v-window-item>
+            <v-window-item :value="2"><DeliveryTime/></v-window-item>
+
+            <v-window-item :value="3"><OrderConfirm/></v-window-item>
+
           </v-window>
 
           <v-divider></v-divider>
 
           <v-card-actions>
-            <v-btn
-              :disabled="step === 1"
-              text
-              @click="step--"
-            >
-              Back
-            </v-btn>
+
+            <v-btn :disabled="step === 1" text @click="step--">Back</v-btn>
+
             <v-spacer></v-spacer>
 
             <v-btn
+              v-if="step === 1"
               :disabled="(step === 1 && !checkoutLocation) || step === 3"
               color="primary"
               depressed
@@ -54,10 +38,22 @@
             >
               Next
             </v-btn>
+
+            <v-btn
+              v-if="step === 2"
+              :disabled="(step === 1 && !checkoutLocation) || step === 3"
+              color="error"
+              depressed
+              @click="placeOrder"
+            >
+              Confirm Order
+            </v-btn>
+
           </v-card-actions>
         </v-card>
 
       </v-col>
+
     </v-row>
 
     <AddressDialog/>
@@ -85,7 +81,7 @@
     },
 
     middleware({ store, redirect }) {
-      // If the user is not authenticated
+
       store.dispatch('checkout/fetchLedgers')
       store.dispatch('profile/fetchLocations')
       store.dispatch('bootstrap/fetchAreas')
@@ -94,7 +90,6 @@
     data: () => ({
       step: 1,
       steps: ['Address', 'Select Delivery Date Time', 'Confirm'],
-      e6: 1,
     }),
 
     computed: {
@@ -110,6 +105,12 @@
         }
       },
     },
+
+    methods: {
+      placeOrder() {
+        this.$store.dispatch('checkout/PlaceOrder')
+      }
+    }
   }
 </script>
 

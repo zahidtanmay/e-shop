@@ -27,4 +27,11 @@ export const actions = {
     context.commit('SET_LEDGERS', data.data)
   },
 
+  async PlaceOrder ({rootState}) {
+    // let { data } = await this.$axios.post(`/orders`)
+    let checkout = {}
+    checkout.items = rootState.cart.cartItems
+    console.log(checkout)
+  }
+
 }

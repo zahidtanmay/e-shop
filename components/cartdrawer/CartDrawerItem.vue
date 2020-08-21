@@ -3,7 +3,7 @@
 
     <v-row align="center" justify="start" class="cart-drawer-item-action-row">
       <v-btn icon x-small @click="addToCart(item)"><v-icon color="warning">mdi-chevron-up</v-icon></v-btn>
-      <span class="font-weight-light ma-auto cart-drawer-item-action-count">{{item.count}}</span>
+      <span class="font-weight-light ma-auto cart-drawer-item-action-count">{{item.quantity}}</span>
       <v-btn icon x-small @click="removeFromCart(item)"><v-icon color="warning">mdi-chevron-down</v-icon></v-btn>
     </v-row>
 
@@ -18,7 +18,7 @@
 
     <v-row align="center" justify="end" class="cart-drawer-item-right-row">
       <span><v-icon x-small>mdi-currency-bdt</v-icon></span>
-      <span class="subheading mr-2 font-weight-light">{{item.price * item.count}}</span>
+      <span class="subheading mr-2 font-weight-light">{{item.price * item.quantity}}</span>
       <v-btn icon x-small @click="discardFromCart(item)"><v-icon  color="error">mdi-close</v-icon></v-btn>
     </v-row>
   </v-list-item>
@@ -43,11 +43,11 @@
     methods: {
 
       async addToCart (item) {
-        await this.$store.dispatch('cart/addToCart', { item: item, count: item.count })
+        await this.$store.dispatch('cart/addToCart', { item: item, quantity: item.quantity })
       },
 
       async removeFromCart (item) {
-        await this.$store.dispatch('cart/removeFromCart', { item: item, count: item.count })
+        await this.$store.dispatch('cart/removeFromCart', { item: item, quantity: item.quantity })
       },
 
       async discardFromCart(item) {

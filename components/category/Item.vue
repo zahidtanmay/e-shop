@@ -17,11 +17,11 @@
           <v-fade-transition>
             <v-overlay v-if="hover" absolute color="#036358" z-index="0">
 
-              <div class="display-2 text-center" v-if="count > 0">{{count}} added</div>
+              <div class="display-2 text-center" v-if="quantity > 0">{{quantity}} added</div>
               <div class="display-2 text-center" v-else>Add to cart</div>
 
               <div class="text-center">
-                <v-btn small depressed color="grey" class="item-overlay-button mt-16" width="100%" v-if="hover" @click="setItemDetails(itemDetails, count)">
+                <v-btn small depressed color="grey" class="item-overlay-button mt-16" width="100%" v-if="hover" @click="setItemDetails(itemDetails, quantity)">
                   view details
                 </v-btn>
               </div>
@@ -33,7 +33,7 @@
       </template>
     </v-hover>
 
-    <v-row v-if="count > 0">
+    <v-row v-if="quantity > 0">
 
       <v-col xs="3" class="py-0">
         <v-btn depressed small width="100%" @click="removeFromCart">
@@ -41,7 +41,7 @@
         </v-btn>
       </v-col>
 
-      <v-col xs="5" class="py-0 text-center">{{count}}</v-col>
+      <v-col xs="5" class="py-0 text-center">{{quantity}}</v-col>
 
       <v-col xs="3" class="py-0">
         <v-btn depressed small width="100%" @click="addToCart">
@@ -71,31 +71,31 @@
     },
 
     data: () => ({
-      count: 0,
+      quantity: 0,
     }),
 
     methods: {
 
-      setItemDetails (item, count) {
-        item.count = count
+      setItemDetails (item, quantity) {
+        item.quantity = quantity
         this.$store.commit('product/SET_ACTIVE_PRODUCT', item)
         this.$store.commit('component/setItemDetailsDialog', true)
       },
 
       async addToCart () {
-        await this.$store.dispatch('cart/addToCart', { item: this.itemDetails, count: this.count, cartPre: this.cartPre })
+        await this.$store.dispatch('cart/addToCart', { item: this.itemDetails, quantity: this.quantity, cartPre: this.cartPre })
       },
 
       async removeFromCart () {
-        await this.$store.dispatch('cart/removeFromCart', { item: this.itemDetails, count: this.count, cartPre: this.cartPre })
+        await this.$store.dispatch('cart/removeFromCart', { item: this.itemDetails, quantity: this.quantity, cartPre: this.cartPre })
       },
 
       itemCountSet (val) {
         if (`${this.itemDetails.id}` in val) {
           const item = val[`${this.itemDetails.id}`]
-          this.count = item.count
+          this.quantity = item.quantity
         } else {
-          this.count = 0
+          this.quantity = 0
         }
       },
 
