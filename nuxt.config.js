@@ -85,7 +85,7 @@ export default {
     headers: {
       common: {
         'Accept': 'application/json, text/plain, */*',
-        'X-Company-Id': '1'
+        'X-Company-Id': '1',
       },
       delete: {},
       get: {},
@@ -147,6 +147,7 @@ export default {
   },
 
   router: {
+    middleware: ['auth'],
     linkActiveClass: 'active-link',
     linkExactActiveClass: 'exact-active-link',
   },
@@ -161,12 +162,11 @@ export default {
     strategies: {
       local: {
         endpoints: {
-          login: { url: '/verify-otp', method: 'post', propertyName: false },
-          logout: false,
-          user: false
+          login: { url: '/verify-otp', method: 'post', propertyName: 'data.token' },
+          logout: { url: 'logout', method: 'get'},
+          user: { url: 'customer', method: 'get', propertyName: 'data'}
         },
-        tokenType: '',
-        globalToken: false,
+        tokenType: 'Bearer'
       }
     }
   },

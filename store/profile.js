@@ -37,8 +37,8 @@ export const actions = {
     const dt = Object.assign({}, data)
     try {
       const {data} = await this.$auth.loginWith('local', {data: JSON.stringify(dt)})
-      await this.$auth.setUser(data.data.user)
-      await this.$auth.setToken('local', data.data.token)
+      // await this.$auth.setUser(data.data.user)
+      // await this.$auth.setToken('local', `Bearer ${data.data.token}`)
       return true
     } catch (e) {
       console.log(e, e.response)
@@ -55,7 +55,7 @@ export const actions = {
   async updateProfile({commit, rootState}, value) {
 
     try {
-      const {data} = await this.$axios.put(`customer?token=${this.$auth.getToken('local')}`, JSON.stringify(value))
+      const {data} = await this.$axios.put(`customer`, JSON.stringify(value))
       let user = { ...rootState.auth.user, ...value }
       await this.$auth.setUser(user)
       this.$toast.success('Profile Updated Successfully')
@@ -68,17 +68,14 @@ export const actions = {
   },
 
   async fetchLocations (context) {
-    const token = this.$auth.getToken('local')
-    let { data } = await this.$axios.get(`/locations?cols=*&token=${token}`)
+    let { data } = await this.$axios.get(`/locations?cols=*`)
     context.commit('SET_LOCATIONS', [])
     context.commit('SET_LOCATIONS', data.data)
   },
 
   async addLocation (context, location) {
-    console.log('location', location)
-    const token = this.$auth.getToken('local')
     try {
-      let { data } = await this.$axios.post(`/locations?&token=${token}`, JSON.stringify(location))
+      let { data } = await this.$axios.post(`/locations`, JSON.stringify(location))
       this.$toast.success('Location added Successfully')
       context.commit('ADD_LOCATION', location)
       context.commit('component/setAddressDialog', false, { root: true })

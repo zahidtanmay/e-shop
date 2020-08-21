@@ -17,6 +17,7 @@
 
   export default {
     name: 'LogIn',
+    auth: 'guest',
 
     components: {
       LoginForm

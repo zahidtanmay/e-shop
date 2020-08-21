@@ -99,7 +99,7 @@
     computed: {
       name: {
         get() {
-          return this.$store.state.auth.user.name
+          return this.$auth.user.name
         },
         set(val) {
           this.user.name = val

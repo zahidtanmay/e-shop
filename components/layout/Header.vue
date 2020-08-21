@@ -22,64 +22,36 @@
     <v-spacer></v-spacer>
 
     <template v-if="this.$store.state.auth.loggedIn">
-        <v-menu
-          bottom
-        >
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              icon
-              v-bind="attrs"
-              v-on="on"
-            >
-              <v-icon>mdi-account</v-icon>
-            </v-btn>
-          </template>
-
-          <v-list>
-            <template v-for="(item, index) in sessions">
-              <v-list-item
-                :key="index"
-                @click="sessionTo(item.link)"
-              >
-                <v-list-item-title >{{ item.title }}</v-list-item-title>
-
-              </v-list-item>
-              <v-divider class="my-0"></v-divider>
-            </template>
-          </v-list>
-        </v-menu>
-      <!--&lt;!&ndash;{{ this.$store.state.auth.user.name}}&ndash;&gt;-->
-    </template>
-
-    <template v-else>
-      <div class="my-2 d-none d-md-flex">
-        <v-btn color="error" dark large tile outlined @click="setLoginDialog">Sign In</v-btn>
-      </div>
-
-      <v-menu
+      <div><v-menu
         bottom
       >
         <template v-slot:activator="{ on, attrs }">
           <v-btn
-            icon
             v-bind="attrs"
             v-on="on"
-            class="d-md-none"
+            icon
           >
-            <v-icon>mdi-dots-vertical</v-icon>
+            <v-icon>mdi-account</v-icon>
           </v-btn>
         </template>
-
         <v-list>
           <v-list-item
-            v-for="n in 5"
-            :key="n"
-            @click="() => {}"
+            v-for="(item, index) in sessions"
+            :key="index"
+            @click="sessionTo(item.link)"
           >
-            <v-list-item-title>Option {{ n }}</v-list-item-title>
+            <v-list-item-title >{{ item.title }}</v-list-item-title>
           </v-list-item>
         </v-list>
-      </v-menu>
+      </v-menu></div>
+
+    </template>
+
+    <template v-else>
+      <div>
+        <v-btn color="error" dark large tile outlined @click="setLoginDialog" class="my-2 d-none d-md-flex">Sign In</v-btn>
+        <v-btn icon @click="setLoginDialog" class="d-md-none"><v-icon>mdi-login</v-icon></v-btn>
+      </div>
     </template>
 
 
