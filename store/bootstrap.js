@@ -1,9 +1,10 @@
+import Vue from 'vue'
 export const state = () => ({
   version: '',
   categories: [],
   company: {},
   areas: [],
-  customFields: []
+  customFields: {}
 })
 
 export const getters = {
@@ -19,7 +20,12 @@ export const mutations = {
   SET_COMPANY: (state, value) => { state.company = value },
   SET_AREAS: (state, value) => { state.areas = value },
   SET_VERSION: (state, value) => { state.version = value },
-  SET_CUSTOM_FIELDS: (state, value) => { state.customFields = value }
+  SET_CUSTOM_FIELDS: (state, value) => {
+    value.forEach(field => {
+      console.log(field)
+      state.customFields = { ...state.customFields, [field.name]: Vue._.cloneDeep(field) }
+    })
+  }
 
 }
 
@@ -40,7 +46,7 @@ export const actions = {
   },
 
   async fetchCustomFields (context) {
-    let { data } = await this.$axios.get('/custom-fields')
+    let { data } = await this.$axios.get('/custom-fields?cols=*')
     context.commit('SET_CUSTOM_FIELDS', data.data)
   },
 

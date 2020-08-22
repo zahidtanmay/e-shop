@@ -79,7 +79,7 @@
 
       setItemDetails (item, quantity) {
         item.quantity = quantity
-        this.$store.commit('product/SET_ACTIVE_PRODUCT', item)
+        this.$store.commit('product/SET_ACTIVE_PRODUCT', { product: item, customFields: this.$store.state.bootstrap.customFields })
         this.$store.commit('component/setItemDetailsDialog', true)
       },
 

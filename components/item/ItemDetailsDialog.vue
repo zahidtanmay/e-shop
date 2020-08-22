@@ -26,16 +26,17 @@
 
             <div class="text-center">
               <template v-for="(field, fieldIndex) in item.customFields" >
-                <span v-if="field.typeId == 2">{{field.name}}: {{field.value}}</span> <span v-if="field.typeId == 2 && fieldIndex < item.customFields.length - 1">, </span>
+                <span v-if="field.typeId == 2">{{field.name}}: {{field.convertedValue}}</span>
+                <span v-if="field.typeId == 2 && fieldIndex < item.customFields.length - 1">, </span>
               </template>
             </div>
 
-            <div class="mb-4 text-center title" v-if="discount > 0">
+            <div class="mb-4 text-center title" v-if="item.discount > 0">
               <v-icon>mdi-currency-bdt</v-icon>
               <span class="text-decoration-line-through error--text">{{item.price}}</span>
-              <span class="error--text">{{parseInt(item.price) - discount}}</span>
-              <v-chip v-if="discount > 0" class="ma-2" color="orange" label outlined>
-                {{discount}} <v-icon>mdi-currency-bdt</v-icon> OFF
+              <span class="error--text">{{item.discountedPrice}}</span>
+              <v-chip class="ma-2" color="orange" label outlined>
+                {{item.discount}} <v-icon>mdi-currency-bdt</v-icon> OFF
               </v-chip>
             </div>
             <div class="mb-4 text-center title" v-else>
@@ -84,7 +85,8 @@
 
     computed: {
       ...mapGetters({
-        item: 'product/getActiveProduct'
+        item: 'product/getActiveProduct',
+        customFields: 'bootstrap/getCustomFields'
       }),
 
       dialog: {
@@ -96,12 +98,6 @@
           this.$store.commit('component/setItemDetailsDialog', val)
         }
       },
-
-      discount () {
-        const customFields = this.item.customFields
-        const id = customFields.findIndex(field => parseInt(field.typeId) === 4)
-        return id > -1 ? parseInt(customFields[id].value) : 0
-      }
 
     },
 
