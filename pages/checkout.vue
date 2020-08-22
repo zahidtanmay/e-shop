@@ -31,7 +31,7 @@
 
             <v-btn
               v-if="step === 1"
-              :disabled="(step === 1 && !checkoutLocation) || step === 3"
+              :disabled="(step === 1 && !checkoutLocation)"
               color="primary"
               depressed
               @click="step++"
@@ -41,9 +41,9 @@
 
             <v-btn
               v-if="step === 2"
-              :disabled="(step === 1 && !checkoutLocation) || step === 3"
               color="error"
               depressed
+              :disabled="!deliveryDay && !deliveryTime"
               @click="placeOrder"
             >
               Confirm Order
@@ -94,7 +94,9 @@
 
     computed: {
       ...mapGetters({
-        checkoutLocation: 'checkout/getCheckoutLocation'
+        checkoutLocation: 'checkout/getCheckoutLocation',
+        deliveryDay: 'checkout/getDeliveryDay',
+        deliveryTime: 'checkout/getDeliveryTime'
       }),
 
       currentTitle () {
@@ -107,8 +109,9 @@
     },
 
     methods: {
-      placeOrder() {
-        this.$store.dispatch('checkout/PlaceOrder')
+      async placeOrder() {
+        await this.$store.dispatch('checkout/PlaceOrder')
+        // this.step++
       }
     }
   }

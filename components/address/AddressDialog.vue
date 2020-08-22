@@ -27,7 +27,6 @@
             <!--v-model="phone"-->
             <!--label="Phone"-->
             <!--:rules="[rules.required]"-->
-            <!--validate-on-blur-->
             <!--persistent-hint-->
           <!--&gt;</v-text-field>-->
 
@@ -153,7 +152,7 @@
 
       area: {
         get() {
-          return this.$store.state.profile.activeAddress.area
+          return this.$store.state.profile.activeAddress.areaId
         },
         set (val) {
           this.location.areaId = val.id
