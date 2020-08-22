@@ -15,6 +15,7 @@
       capitalize: function (value) {
         let str = ''
         value = value.split('-')
+        value.splice(value.length - 2, 2)
         value.map(word => {str = str + ' ' + word.charAt(0).toUpperCase() + word.slice(1)})
         return str.trim()
       }

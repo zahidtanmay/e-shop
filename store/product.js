@@ -43,8 +43,12 @@ export const mutations = {
 
 export const actions = {
 
-  async fetchProduct (context) {
-    let {data} = await this.$axios.get('products?cols=*')
+  async fetchProduct (context, value) {
+    let slug = value.split('-')
+    const type = slug.pop()
+    const id = slug.pop()
+    const filter = type === 'c' ? 'categoryId:' : 'subCategoryId:'
+    let {data} = await this.$axios.get(`products?cols=*&filters=${filter}${id}`)
     context.commit('SET_PRODUCTS', data.data)
   },
 }

@@ -23,8 +23,8 @@
           :key="category.name"
           :value="cat === currentNav.cat"
           :ref="`cat-${cat}`"
-          @click.prevent="routeLink(cat, null, null, category.name)"
-          :to="category.name"
+          @click.prevent="routeLink(cat, null, null, category.slug)"
+          :to="category.slug"
         >
 
           <template slot="activator">
@@ -72,7 +72,7 @@
               <v-list-item
                 :key="subCategory.name"
                 link
-                :to="subCategory.name"
+                :to="subCategory.slug"
                 class="single-sub-group"
               >
                 <v-list-item-title @click="routeLink(cat, scat)" v-text="subCategory.name"></v-list-item-title>

@@ -54,8 +54,8 @@
 
     },
 
-    async middleware({ store, redirect }) {
-      await store.dispatch('product/fetchProduct')
+    async middleware({ store, redirect, route }) {
+      await store.dispatch('product/fetchProduct', route.params.category)
     }
   }
 </script>
