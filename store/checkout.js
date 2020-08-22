@@ -33,11 +33,25 @@ export const actions = {
     let checkoutItems = []
     const cartItems = rootState.cart.cartItems
 
-    console.log(cartItems)
-    for (const key in cartItems) {
 
-      checkoutItems.push(cartItems[`${key}`])
+    for (const key in cartItems) {
+      const item = cartItems[`${key}`]
+      let cartItem = {}
+      cartItem.productId = item.id
+      cartItem.unitPrice = parseInt(item.price)
+      cartItem.purchasePrice = parseInt(item.price)
+      cartItem.quantity = parseInt(item.quantity)
+      cartItem.discount = 0
+      if (item.customFields.length > 0) {
+        const id = item.customFields.findIndex(field => parseInt(field.typeId) === 4 )
+        cartItem.discount = parseInt(item.customFields[id].value)
+      }
+      cartItem.vat = 0
+      cartItem.total = (cartItem.unitPrice * cartItem.quantity) - (cartItem.quantity * cartItem.discount)
+      console.log(cartItem)
+      checkoutItems.push(cartItem)
     }
+
     checkout.items = checkoutItems
     checkout.subTotal = rootState.cart.cartTotal
 

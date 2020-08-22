@@ -11,7 +11,8 @@
           <v-card-text class="text-center">
             <div class="item-name-text mb-4">{{itemDetails.name}}</div>
             <div class="primary--text">{{itemDetails.unit}}</div>
-            <div class="primary--text title"><v-icon>mdi-currency-bdt</v-icon> {{itemDetails.price}}</div>
+            <div class="primary--text" v-if="discount > 0"><v-icon small>mdi-currency-bdt</v-icon> <span  class="text-decoration-line-through">{{itemDetails.price}}</span> <span>{{parseInt(itemDetails.price) - discount}}</span></div>
+            <div class="primary--text" v-else><v-icon small>mdi-currency-bdt</v-icon> {{itemDetails.price}}</div>
           </v-card-text>
 
           <v-fade-transition>
@@ -33,7 +34,7 @@
       </template>
     </v-hover>
 
-    <v-row v-if="quantity > 0">
+    <v-row v-if="quantity > 0" class="mt-1">
 
       <v-col xs="3" class="py-0">
         <v-btn depressed small width="100%" @click="removeFromCart">
@@ -109,6 +110,12 @@
       cartPre () {
         return this.$route.params.category
       },
+
+      discount () {
+        const customFields = this.itemDetails.customFields
+        const id = customFields.findIndex(field => parseInt(field.typeId) === 4)
+        return id > -1 ? parseInt(customFields[id].value) : 0
+      }
 
     },
 

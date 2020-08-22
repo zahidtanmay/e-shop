@@ -16,7 +16,7 @@ export const mutations = {
 export const actions = {
 
   async fetchOrders (context) {
-    let {data} = await this.$axios.get('order?cols=*')
+    let {data} = await this.$axios.get('orders?cols=*')
     context.commit('SET_ORDERS', data.data)
   },
 }

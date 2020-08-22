@@ -133,9 +133,6 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
-    vendor:[ 'vue-product-zoomer'],
-    plugins: [
-    ]
   },
 
   loading: {
@@ -154,7 +151,6 @@ export default {
 
 
   auth: {
-    plugins: [ '~/plugins/auth.js' ],
     token: {
       prefix: 'shop_token'
     },

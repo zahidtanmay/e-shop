@@ -11,6 +11,7 @@
         <v-icon aria-label="Close" @click="dialog = false">mdi-close</v-icon>
       </v-card-title>
       <v-container>
+
         <v-row>
           <v-col md="6">
 
@@ -19,8 +20,28 @@
           </v-col>
 
           <v-col md="6"><v-card-text>
+
+
             <div class="headline mb-1 text-center">{{item.name}}</div>
-            <div class="mb-4 text-center">{{item.unit}} / <v-icon x-small>mdi-currency-bdt</v-icon>{{item.price}}</div>
+
+            <div class="text-center">
+              <template v-for="(field, fieldIndex) in item.customFields" >
+                <span v-if="field.typeId == 2">{{field.name}}: {{field.value}}</span> <span v-if="field.typeId == 2 && fieldIndex < item.customFields.length - 1">, </span>
+              </template>
+            </div>
+
+            <div class="mb-4 text-center title" v-if="discount > 0">
+              <v-icon>mdi-currency-bdt</v-icon>
+              <span class="text-decoration-line-through error--text">{{item.price}}</span>
+              <span class="error--text">{{parseInt(item.price) - discount}}</span>
+              <v-chip v-if="discount > 0" class="ma-2" color="orange" label outlined>
+                {{discount}} <v-icon>mdi-currency-bdt</v-icon> OFF
+              </v-chip>
+            </div>
+            <div class="mb-4 text-center title" v-else>
+              <v-icon>mdi-currency-bdt</v-icon>
+              <span class="error--text">{{item.price}}</span>
+            </div>
 
             <v-row class="mb-4">
 
@@ -75,6 +96,12 @@
           this.$store.commit('component/setItemDetailsDialog', val)
         }
       },
+
+      discount () {
+        const customFields = this.item.customFields
+        const id = customFields.findIndex(field => parseInt(field.typeId) === 4)
+        return id > -1 ? parseInt(customFields[id].value) : 0
+      }
 
     },
 
