@@ -2,25 +2,41 @@ import  Vue from 'vue'
 export const state = () => ({
   cartItems: Object.create(null),
   cartCount: 0,
-  cartTotal: 0
+  cartTotal: 0,
+  cartDiscountedTotal: 0,
+  cartTotalDiscount: 0
 })
 
 export const getters = {
   getCartItems: state => state.cartItems,
   getCartCount: state => state.cartCount,
   getCartTotal: state => state.cartTotal,
+  getCartDiscountedTotal: state => state.cartDiscountedTotal,
+  getCartTotalDiscount: state => state.cartTotalDiscount,
 }
 
 export const mutations = {
 
   INCREMENT_CART_ITEM: (state, data) => {
-    const item = data.item
+    let item = data.item
+
+    item.productId = item.id
+    item.unitPrice = parseInt(item.price)
+    item.purchasePrice = parseInt(item.price)
     item.quantity = data.quantity + 1
+    item.discount = data.discount
+
+    item.discountedPrice = item.discount > 0 ? item.unitPrice - item.discount : 0
+    item.totalDiscount = item.discount > 0 ? item.quantity * item.discount : 0
+
+    item.total = item.quantity * item.unitPrice
+    item.discountedTotal = item.total - item.totalDiscount
+
     state.cartItems = { ...state.cartItems, [item.id]: Vue._.cloneDeep(item) }
   },
 
   DECREMENT_CART_ITEM: (state, data) => {
-    const item = data.item
+    let item = data.item
     if (data.quantity === 1) {
       Vue.delete(state.cartItems, item.id)
     } else {
@@ -39,13 +55,18 @@ export const mutations = {
 
   CALCULATE_CART_TOTAL: (state) => {
     let total = 0
+    let discountedTotal = 0
+    let totalDiscount = 0
     let key = null
     for (key in state.cartItems) {
       const item = state.cartItems[`${key}`]
-      let subTotal = item.quantity * item.price
-      total += subTotal
+      total += item.total
+      discountedTotal += item.discountedTotal
+      totalDiscount += item.totalDiscount
     }
     state.cartTotal = total
+    state.cartDiscountedTotal = discountedTotal
+    state.cartTotalDiscount = totalDiscount
   }
 }
 

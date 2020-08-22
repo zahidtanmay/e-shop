@@ -11,7 +11,9 @@
           <v-card-text class="text-center">
             <div class="item-name-text mb-4">{{itemDetails.name}}</div>
             <div class="primary--text">{{itemDetails.unit}}</div>
-            <div class="primary--text" v-if="discount > 0"><v-icon small>mdi-currency-bdt</v-icon> <span  class="text-decoration-line-through">{{itemDetails.price}}</span> <span>{{parseInt(itemDetails.price) - discount}}</span></div>
+            <div class="primary--text" v-if="discount > 0">
+              <v-icon small>mdi-currency-bdt</v-icon> <span  class="text-decoration-line-through">{{itemDetails.price}}</span>
+              <span>{{parseInt(itemDetails.price) - discount}}</span></div>
             <div class="primary--text" v-else><v-icon small>mdi-currency-bdt</v-icon> {{itemDetails.price}}</div>
           </v-card-text>
 
@@ -84,7 +86,7 @@
       },
 
       async addToCart () {
-        await this.$store.dispatch('cart/addToCart', { item: this.itemDetails, quantity: this.quantity, cartPre: this.cartPre })
+        await this.$store.dispatch('cart/addToCart', { item: this.itemDetails, quantity: this.quantity, discount: this.discount, cartPre: this.cartPre })
       },
 
       async removeFromCart () {

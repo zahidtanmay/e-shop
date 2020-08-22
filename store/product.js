@@ -14,11 +14,11 @@ export const mutations = {
     let item = Object.assign({}, product)
     const itemCustomFields = product.customFields
     const id = itemCustomFields.findIndex(field => parseInt(field.typeId) === 4)
-    item.discount = 0
-    item.discountedPrice = 0
+    item.itemDetailsDiscount = 0
+    item.itemDetailsDiscountedPrice = 0
     if (id > -1) {
-      item.discount = parseInt(itemCustomFields[id].value)
-      item.discountedPrice = parseInt(item.price) - parseInt(itemCustomFields[id].value)
+      item.itemDetailsDiscount = parseInt(itemCustomFields[id].value)
+      item.itemDetailsDiscountedPrice = parseInt(item.price) - parseInt(itemCustomFields[id].value)
     }
 
     const convertedCustomFields = []

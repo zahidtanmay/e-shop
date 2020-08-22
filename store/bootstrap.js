@@ -22,7 +22,6 @@ export const mutations = {
   SET_VERSION: (state, value) => { state.version = value },
   SET_CUSTOM_FIELDS: (state, value) => {
     value.forEach(field => {
-      console.log(field)
       state.customFields = { ...state.customFields, [field.name]: Vue._.cloneDeep(field) }
     })
   }

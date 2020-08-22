@@ -24,7 +24,10 @@
             </v-row>
 
             <div class="grey lighten-4 grey--text">
-              <span><v-icon small>mdi-currency-bdt</v-icon> {{cartTotal}}</span>
+              <span><v-icon small>mdi-currency-bdt</v-icon> </span>
+              <span v-if="cartDiscountedTotal > 0" class="text-decoration-line-through">{{cartTotal}}</span>
+              <span v-else>{{cartTotal}}</span>
+              <span v-if="cartDiscountedTotal > 0">{{cartDiscountedTotal}}</span>
             </div>
           </div>
 
@@ -59,6 +62,7 @@
         drawer: 'component/getCartDrawer',
         cartCount: 'cart/getCartCount',
         cartTotal: 'cart/getCartTotal',
+        cartDiscountedTotal: 'cart/getCartDiscountedTotal'
       })
     },
 

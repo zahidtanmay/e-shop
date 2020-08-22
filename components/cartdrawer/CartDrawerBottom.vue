@@ -4,7 +4,10 @@
       Place Order
     </v-col>
     <v-col md="6" class="cart-drawer-place-order-btn-content2">
-      <v-icon color="white">mdi-currency-bdt</v-icon> {{cartTotal}}
+      <v-icon color="white">mdi-currency-bdt</v-icon>
+      <span v-if="cartDiscountedTotal > 0" class="text-decoration-line-through">{{cartTotal}}</span>
+      <span v-else>{{cartTotal}}</span>
+      <span v-if="cartDiscountedTotal > 0">{{cartDiscountedTotal}}</span>
     </v-col>
   </v-row>
 </template>
@@ -15,7 +18,8 @@
     name: 'CartDrawerBottom',
     computed: {
       ...mapGetters({
-        cartTotal: 'cart/getCartTotal'
+        cartTotal: 'cart/getCartTotal',
+        cartDiscountedTotal: 'cart/getCartDiscountedTotal'
       })
     }
   }

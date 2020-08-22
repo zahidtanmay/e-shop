@@ -31,12 +31,12 @@
               </template>
             </div>
 
-            <div class="mb-4 text-center title" v-if="item.discount > 0">
+            <div class="mb-4 text-center title" v-if="item.itemDetailsDiscount > 0">
               <v-icon>mdi-currency-bdt</v-icon>
               <span class="text-decoration-line-through error--text">{{item.price}}</span>
-              <span class="error--text">{{item.discountedPrice}}</span>
+              <span class="error--text">{{item.itemDetailsDiscountedPrice}}</span>
               <v-chip class="ma-2" color="orange" label outlined>
-                {{item.discount}} <v-icon>mdi-currency-bdt</v-icon> OFF
+                {{item.itemDetailsDiscount}} <v-icon>mdi-currency-bdt</v-icon> OFF
               </v-chip>
             </div>
             <div class="mb-4 text-center title" v-else>

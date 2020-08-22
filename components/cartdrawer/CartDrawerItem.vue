@@ -13,12 +13,19 @@
 
     <v-list-item-content>
       <v-list-item-subtitle class="cart-drawer-item-content-title">{{item.name}}</v-list-item-subtitle>
-      <v-list-item-subtitle class="cart-drawer-item-content-subtitle"><v-icon x-small>mdi-currency-bdt</v-icon>{{item.price}} / {{item.unit}}</v-list-item-subtitle>
+      <v-list-item-subtitle class="cart-drawer-item-content-subtitle"><v-icon x-small>mdi-currency-bdt</v-icon>
+        <span v-if="item.discount > 0" class="text-decoration-line-through">{{item.price}}</span>
+        <span v-else>{{item.price}}</span>
+        <span v-if="item.discount > 0">{{item.discountedPrice}}</span>
+        / {{item.unit}}
+      </v-list-item-subtitle>
     </v-list-item-content>
 
     <v-row align="center" justify="end" class="cart-drawer-item-right-row">
       <span><v-icon x-small>mdi-currency-bdt</v-icon></span>
-      <span class="subheading mr-2 font-weight-light">{{item.price * item.quantity}}</span>
+      <span class="subheading mr-2 font-weight-light text-decoration-line-through" v-if="item.totalDiscount > 0">{{item.total}}</span>
+      <span class="subheading mr-2 font-weight-light" v-else>{{item.total}}</span>
+      <span class="subheading mr-2 font-weight-light" v-if="item.totalDiscount > 0">{{item.discountedTotal}}</span>
       <v-btn icon x-small @click="discardFromCart(item)"><v-icon  color="error">mdi-close</v-icon></v-btn>
     </v-row>
   </v-list-item>
