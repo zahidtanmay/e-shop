@@ -9,8 +9,8 @@
 
     <v-row justify="center">
       <v-col md="8">
-        <template v-for="order in orders">
-          <single-order :orderDetails="order"/>
+        <template v-for="(order, index) in orders">
+          <single-order :orderDetails="order" :orderIndex="index" />
         </template>
       </v-col>
     </v-row>
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
   import SingleOrder from '~/components/orders/Order.vue'
   import OrderDetailsDialog from '~/components/orders/DetailsDialog.vue'
 
@@ -32,20 +33,26 @@
       store.dispatch('orders/fetchOrders')
     },
 
+    computed: {
+      ...mapGetters({
+        orders: 'orders/getOrders'
+      })
+    },
+
     data: () => ({
 
-      orders: [
-        {
-          id: 5,
-          status: 'cancelled',
-          amount: 120
-        },
-        {
-          id: 8,
-          status: 'pending',
-          amount: 450
-        }
-      ]
+      // orders: [
+      //   {
+      //     id: 5,
+      //     status: 'cancelled',
+      //     amount: 120
+      //   },
+      //   {
+      //     id: 8,
+      //     status: 'pending',
+      //     amount: 450
+      //   }
+      // ]
 
     }),
 

@@ -25,9 +25,9 @@
 
             <div class="grey lighten-4 grey--text">
               <span><v-icon small>mdi-currency-bdt</v-icon> </span>
-              <span v-if="cartDiscountedTotal > 0" class="text-decoration-line-through">{{cartTotal}}</span>
+              <span v-if="cartTotalDiscount > 0" class="text-decoration-line-through">{{cartTotal}}</span>
               <span v-else>{{cartTotal}}</span>
-              <span v-if="cartDiscountedTotal > 0">{{cartDiscountedTotal}}</span>
+              <span v-if="cartTotalDiscount > 0">{{cartDiscountedTotal}}</span>
             </div>
           </div>
 
@@ -62,7 +62,8 @@
         drawer: 'component/getCartDrawer',
         cartCount: 'cart/getCartCount',
         cartTotal: 'cart/getCartTotal',
-        cartDiscountedTotal: 'cart/getCartDiscountedTotal'
+        cartDiscountedTotal: 'cart/getCartDiscountedTotal',
+        cartTotalDiscount: 'cart/getCartTotalDiscount'
       })
     },
 

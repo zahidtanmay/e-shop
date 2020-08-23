@@ -3,7 +3,9 @@ export const state = () => ({
   checkoutLocation: null,
   deliveryDay: null,
   deliveryTime: null,
-  deliveryNote: ''
+  deliveryNote: '',
+  orderId: null,
+  checkoutDetails: {}
 })
 
 export const getters = {
@@ -11,7 +13,9 @@ export const getters = {
   getCheckoutLocation: state => state.checkoutLocation,
   getDeliveryDay: state => state.deliveryDay,
   getDeliveryTime: state => state.deliveryTime,
-  getDeliveryNote: state => state.deliveryNote
+  getDeliveryNote: state => state.deliveryNote,
+  getOrderId: state => state.orderId,
+  getCheckoutDetails: state => state.checkoutDetails
 }
 
 export const mutations = {
@@ -19,7 +23,9 @@ export const mutations = {
   SET_CHECKOUT_LOCATION: (state, value) => { state.checkoutLocation = value },
   SET_DELIVERY_DAY: (state, value) => { state.deliveryDay = value },
   SET_DELIVERY_TIME: (state, value) => { state.deliveryTime = value },
-  SET_DELIVERY_NOTE: (state, value) => { state.deliveryNote = value }
+  SET_DELIVERY_NOTE: (state, value) => { state.deliveryNote = value },
+  SET_ORDER_ID: (state, value) => { state.orderId = value },
+  SET_CHECKOUT_DETAILS: (state, value) => { state.checkoutDetails = value }
 }
 
 export const actions = {
@@ -30,7 +36,7 @@ export const actions = {
     context.commit('SET_LEDGERS', data.data)
   },
 
-  async PlaceOrder ({state, rootState}) {
+  async PlaceOrder ({commit, state, rootState}) {
 
     let checkout = {}
 
@@ -80,7 +86,7 @@ export const actions = {
     checkout.deliveryTime = state.deliveryTime ? state.deliveryTime : ''
 
     checkout.lessAmount = '0'
-    checkout.saleTypesId = '25'
+    checkout.saleTypesId = '1'
     checkout.salesPersonId = '116'
     checkout.salesDate = '5-5-2020'
     checkout.discountCode = ''
@@ -97,7 +103,9 @@ export const actions = {
 
     try{
       let { data } = await this.$axios.post(`/orders`, JSON.stringify(checkout))
-      console.log(data)
+      commit('SET_ORDER_ID', data.data.id)
+      commit('SET_CHECKOUT_DETAILS', checkout)
+      commit('cart/RESET_CART', null, { root: true })
     } catch (e) {
       console.log(e)
     }

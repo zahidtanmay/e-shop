@@ -1,15 +1,15 @@
 export const state = () => ({
   orders: [],
-  acriveOrder: {},
+  activeOrder: {},
 })
 
 export const getters = {
   getOrders: state => state.orders,
-  getActiveOrder: state => state.acriveOrder
+  getActiveOrder: state => state.activeOrder
 }
 
 export const mutations = {
-  SET_ORDERS: (state, value) => { state.order = value },
+  SET_ORDERS: (state, value) => { state.orders = value },
   SET_ACTIVE_ORDER: (state, value) => { state.activeOrder = Object.assign({}, value) }
 }
 

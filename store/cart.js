@@ -67,6 +67,13 @@ export const mutations = {
     state.cartTotal = total
     state.cartDiscountedTotal = discountedTotal
     state.cartTotalDiscount = totalDiscount
+  },
+  RESET_CART: (state, value) => {
+    state.cartItems = Object.create(null)
+    state.cartCount = 0
+    state.cartTotal = 0
+    state.cartDiscountedTotal = 0
+    state.cartTotalDiscount = 0
   }
 }
 

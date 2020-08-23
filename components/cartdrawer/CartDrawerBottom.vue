@@ -5,9 +5,9 @@
     </v-col>
     <v-col md="6" class="cart-drawer-place-order-btn-content2">
       <v-icon color="white">mdi-currency-bdt</v-icon>
-      <span v-if="cartDiscountedTotal > 0" class="text-decoration-line-through">{{cartTotal}}</span>
+      <span v-if="cartTotalDiscount > 0" class="text-decoration-line-through">{{cartTotal}}</span>
       <span v-else>{{cartTotal}}</span>
-      <span v-if="cartDiscountedTotal > 0">{{cartDiscountedTotal}}</span>
+      <span v-if="cartTotalDiscount > 0">{{cartDiscountedTotal}}</span>
     </v-col>
   </v-row>
 </template>
@@ -19,7 +19,8 @@
     computed: {
       ...mapGetters({
         cartTotal: 'cart/getCartTotal',
-        cartDiscountedTotal: 'cart/getCartDiscountedTotal'
+        cartDiscountedTotal: 'cart/getCartDiscountedTotal',
+        cartTotalDiscount: 'cart/getCartTotalDiscount'
       })
     }
   }

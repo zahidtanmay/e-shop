@@ -1,7 +1,7 @@
 <template>
 
   <v-dialog v-model="dialog" max-width="500">
-    <v-card class="text-center">
+    <v-card>
       <v-card-title>
         <span class="headline font-weight-light">Order Details</span>
         <v-spacer />
@@ -16,21 +16,40 @@
 
       </v-card-text>
       <v-divider></v-divider>
+      <template v-for="item in activeOrder.items">
+        <v-list-item class="grow">
+          <v-list-item-avatar color="grey darken-3" tile>
+            <v-img
+              class="elevation-6"
+              src="https://cdn.chaldal.net/_mpimage/mango-aamropali-net-weight-50-gm-3-kg?src=https%3A%2F%2Feggyolk.chaldal.com%2Fapi%2FPicture%2FRaw%3FpictureId%3D61314&q=low&v=1&m=400&w=200&webp=1"
+            ></v-img>
+          </v-list-item-avatar>
 
-      <v-list-item class="grow">
-        <v-list-item-avatar color="grey darken-3" tile>
-          <v-img
-            class="elevation-6"
-            src="https://cdn.chaldal.net/_mpimage/mango-aamropali-net-weight-50-gm-3-kg?src=https%3A%2F%2Feggyolk.chaldal.com%2Fapi%2FPicture%2FRaw%3FpictureId%3D61314&q=low&v=1&m=400&w=200&webp=1"
-          ></v-img>
-        </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{item.name}}</v-list-item-title>
+            <v-list-item-subtitle>{{item.quantity}} x <v-icon small>mdi-currency-bdt</v-icon>{{item.unitPrice}}</v-list-item-subtitle>
+          </v-list-item-content>
 
-        <v-list-item-content>
-          <v-list-item-title>Mango Aamropali (Net Weight ± 50 gm)</v-list-item-title>
-          <v-list-item-subtitle>Mango Aamropali (Net Weight ± 50 gm)</v-list-item-subtitle>
-        </v-list-item-content>
+          <v-list-item-action>
+            <v-list-item-title><v-icon small>mdi-currency-bdt</v-icon>{{item.total}}</v-list-item-title>
+          </v-list-item-action>
 
-      </v-list-item>
+        </v-list-item>
+      </template>
+
+      <v-divider></v-divider>
+
+      <v-card-text class="text-center">
+        <div>Subtotal: <v-icon small>mdi-currency-bdt</v-icon>{{activeOrder.subTotal}}</div>
+        <div>Total: <v-icon small>mdi-currency-bdt</v-icon>{{activeOrder.total}}</div>
+        <div>Paid Amount: <v-icon small>mdi-currency-bdt</v-icon>{{activeOrder.paidAmount}}</div>
+        <div>Due Amount: <v-icon small>mdi-currency-bdt</v-icon>{{activeOrder.dueAmount}}</div>
+      </v-card-text>
+
+
+
+
+
 
     </v-card>
 
@@ -39,12 +58,15 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
 
   export default {
 
     name: 'OrderDetailsDialog',
-
     computed: {
+      ...mapGetters({
+        activeOrder: 'orders/getActiveOrder'
+      }),
       dialog: {
         get () {
           return this.$store.state.component.orderDialog

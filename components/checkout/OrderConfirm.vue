@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <div class="pa-4 text-center">
-      <h3 class="title font-weight-light mb-2">Your Order number #133478</h3>
+      <h3 class="title font-weight-light mb-2">Your Order number #{{orderId}}</h3>
       <h3 class="title font-weight-light mb-2">Your Order is placed</h3>
       <span class="caption grey--text">Please pay with cash on delivery</span>
     </div>
@@ -44,7 +44,7 @@
           </v-card-title>
 
           <v-card-text>
-            <div>Subtotal: {{cartTotal}}</div>
+            <div>Subtotal: {{checkoutDetails['total']}}</div>
             <template v-for="(ledger, index) in ledgers">
               <div>{{ledger.name}}: {{ledger.value}}</div>
             </template>
@@ -68,7 +68,9 @@
         deliveryDay: 'checkout/getDeliveryDay',
         deliveryTime: 'checkout/getDeliveryTime',
         ledgers: 'checkout/getLedgers',
-        cartTotal: 'cart/getCartTotal'
+        cartTotal: 'cart/getCartTotal',
+        orderId: 'checkout/getOrderId',
+        checkoutDetails: 'checkout/getCheckoutDetails'
       })
     }
   }

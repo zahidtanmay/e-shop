@@ -111,7 +111,7 @@
     methods: {
       async placeOrder() {
         await this.$store.dispatch('checkout/PlaceOrder')
-        // this.step++
+        this.step++
       }
     }
   }
