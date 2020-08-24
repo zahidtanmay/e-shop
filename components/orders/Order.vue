@@ -1,7 +1,7 @@
 <template>
   <v-card flat outlined :key="orderDetails.id" class="mb-4">
     <v-card-text class="py-1 text-center">
-      <div><v-chip color="primary" outlined>{{orderDetails.statusId}}</v-chip></div>
+      <div><v-chip color="primary" outlined>{{status[orderDetails.statusId]}}</v-chip></div>
       <p class="font-weight-bold orders-list-text">Order # {{orderDetails.invoiceId}}</p>
       <p class="orders-list-text"><v-icon small>mdi-currency-bdt</v-icon>{{orderDetails.total}}</p>
     </v-card-text>
@@ -18,6 +18,15 @@
     name: 'SingleOrder',
 
     props: ['orderDetails', 'orderIndex'],
+
+    data: () => ({
+      status: [
+        'Cancelled',
+        'Unknown',
+        'Pending',
+        'Approved'
+      ]
+    }),
 
     methods: {
 

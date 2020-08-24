@@ -11,7 +11,7 @@
         :cols="12"
         md="4"
       >
-        <v-card outlined hover ripple nuxt :to="category.name">
+        <v-card outlined hover ripple nuxt :to="category.slug">
           <v-list-item>
             <v-list-item-content>
               <v-list-item-subtitle v-text="category.name" class="text-center"></v-list-item-subtitle>

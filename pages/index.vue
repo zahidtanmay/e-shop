@@ -10,6 +10,7 @@
     <v-footer
       dark
       padless
+      class="mt-4"
     >
       <v-card
         flat

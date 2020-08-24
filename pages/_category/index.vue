@@ -1,7 +1,9 @@
 <template>
 
     <v-container fluid>
+
       <v-row dense>
+
         <v-col md="11">
 
           <banner></banner>
@@ -31,7 +33,7 @@
 
     head () {
       return {
-        title: this.$route.params.category,
+        title: this.route,
         meta: [
           // hid is used as unique identifier. Do not use `vmid` for it as it will not work
           { hid: 'description', name: 'description', content: 'My custom description' }
@@ -39,8 +41,18 @@
       }
     },
 
-    data: () => ({
+    computed: {
+      route() {
+        const route = this.$route.params.category
+        let str = ''
+        let value = route.split('-')
+        value.splice(value.length - 2, 2)
+        value.map(word => {str = str + ' ' + word.charAt(0).toUpperCase() + word.slice(1)})
+        return str.trim()
+      }
+    },
 
+    data: () => ({
     }),
 
     components: {

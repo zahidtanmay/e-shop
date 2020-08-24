@@ -2,6 +2,7 @@ import Vue from 'vue'
 export const state = () => ({
   version: '',
   categories: [],
+  customCategories: [],
   company: {},
   areas: [],
   customFields: {}
@@ -12,7 +13,8 @@ export const getters = {
   getCompanyDetails: state => state.company,
   getAreas: state => state.areas,
   getAppVersion: state => state.version,
-  getCustomFields: state => state.customFields
+  getCustomFields: state => state.customFields,
+  getCustomCategories: state => state.customCategories
 }
 
 export const mutations = {
@@ -22,6 +24,9 @@ export const mutations = {
   SET_VERSION: (state, value) => { state.version = value },
   SET_CUSTOM_FIELDS: (state, value) => {
     value.forEach(field => {
+      if(parseInt(field.typeId) === 3) {
+        state.customCategories.push(field)
+      }
       state.customFields = { ...state.customFields, [field.name]: Vue._.cloneDeep(field) }
     })
   }

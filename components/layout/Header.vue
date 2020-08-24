@@ -49,10 +49,8 @@
       </template>
 
       <template v-else>
-        <div>
           <v-btn color="error" dark large tile outlined @click="setLoginDialog" class="my-2 d-none d-md-flex">Sign In</v-btn>
           <v-btn icon @click="setLoginDialog" class="d-md-none"><v-icon>mdi-login</v-icon></v-btn>
-        </div>
       </template>
 
     <!--</no-ssr>-->

@@ -8,6 +8,26 @@
     flat
   >
 
+
+    <v-list
+      dense
+      link
+      v-for="(category, cat) in customCategories"
+      :key="category.name"
+      class="main-side-nav-list"
+    >
+      <v-list-item
+        link
+        :to="category.name"
+        :key="category.name"
+
+      >
+        <v-list-item-title>{{category.name}}</v-list-item-title>
+      </v-list-item>
+    </v-list>
+
+    <v-divider></v-divider>
+
     <v-list
       dense
       link
@@ -117,7 +137,8 @@
       ...mapGetters({
         navLinks: 'nav/getNavLinks',
         currentNav: 'nav/getCurrentNav',
-        categories: 'bootstrap/getCategories'
+        categories: 'bootstrap/getCategories',
+        customCategories: 'bootstrap/getCustomCategories'
       }),
 
       drawer: {
