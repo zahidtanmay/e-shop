@@ -24,7 +24,7 @@ export const mutations = {
   SET_VERSION: (state, value) => { state.version = value },
   SET_CUSTOM_FIELDS: (state, value) => {
     value.forEach(field => {
-      if(parseInt(field.typeId) === 3) {
+      if(parseInt(field.typeId) === 3 || parseInt(field.typeId) === 4) {
         state.customCategories.push(field)
       }
       state.customFields = { ...state.customFields, [field.name]: Vue._.cloneDeep(field) }

@@ -76,6 +76,8 @@ export const actions = {
     try {
       let { data } = await this.$axios.post(`/locations`, JSON.stringify(location))
       this.$toast.success('Location added Successfully')
+      let newLocation = Object.assign({}, location)
+      newLocation.id = data.id
       context.commit('ADD_LOCATION', location)
       context.commit('component/setAddressDialog', false, { root: true })
     } catch (e) {
@@ -89,6 +91,7 @@ export const actions = {
     const token = this.$auth.getToken('local')
     try{
       let { data } = await this.$axios.put(`/locations?&token=${token}`, JSON.stringify(location))
+      console.log('dd', data)
       this.$toast.success('Location Updated Successfully')
       context.commit('UPDATE_LOCATIONS', location)
       context.commit('component/setAddressDialog', false, { root: true })

@@ -1,15 +1,18 @@
 export const state = () => ({
   products: [],
+  deals: [],
   activeProduct: {},
 })
 
 export const getters = {
   getProducts: state => state.products,
+  getDeals: state => state.deals,
   getActiveProduct: state => state.activeProduct
 }
 
 export const mutations = {
   SET_PRODUCTS: (state, value) => { state.products = value },
+  SET_DEALS: (state, value) => { state.deals = value },
   SET_ACTIVE_PRODUCT: (state, { product, customFields }) => {
     let item = Object.assign({}, product)
     const itemCustomFields = product.customFields
@@ -43,13 +46,39 @@ export const mutations = {
 
 export const actions = {
 
-  async fetchProduct (context, value) {
+  async fetchProduct ({commit}, value) {
+    let filter = ''
+    let currentNav = { categoryId: null, subCategoryId: null, childId: null }
+
     let slug = value.split('-')
-    const type = slug.pop()
-    const id = slug.pop()
-    console.log('id', id, value, slug)
-    const filter = type === 'c' ? 'categoryId:' : 'subCategoryId:'
-    let {data} = await this.$axios.get(`products?cols=*&filters=${filter}${id}`)
-    context.commit('SET_PRODUCTS', data.data)
+    if (slug[slug.length - 1] && !isNaN(Number(slug[slug.length - 1]))) {
+      const categoryId = slug.pop()
+      const type = slug.pop()
+      const subCategoryId = slug.pop()
+      filter = `subCategoryId:${subCategoryId}`
+      currentNav.categoryId = parseInt(categoryId)
+      currentNav.subCategoryId = parseInt(subCategoryId)
+    } else {
+      const type = slug.pop()
+      const id = slug.pop()
+
+      if(type === 'c') {
+        filter = `categoryId:${id}`
+        currentNav.categoryId = parseInt(id)
+      } else {
+        filter = `customFieldId:${id}`
+        currentNav.categoryId = null
+
+      }
+    }
+    commit('nav/setCurrentNav', currentNav, { root: true })
+
+    let {data} = await this.$axios.get(`products?cols=*&filters=${filter}`)
+    commit('SET_PRODUCTS', data.data)
   },
+
+  async fetchDeals({commit}, value) {
+    let {data} = await this.$axios.get(`products?cols=*`)
+    commit('SET_DEALS', data.data)
+  }
 }

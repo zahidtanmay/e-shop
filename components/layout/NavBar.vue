@@ -4,120 +4,145 @@
     app
     clipped
     class="main-nav"
-    width="220px"
+    width="250px"
     flat
   >
 
-
-    <v-list
-      dense
-      link
-      v-for="(category, cat) in customCategories"
-      :key="category.name"
-      class="main-side-nav-list"
-    >
-      <v-list-item
+    <no-ssr>
+      <v-list
+        dense
         link
-        :to="category.name"
-        :key="category.name"
-
+        v-for="(category, cat) in customCategories"
+        :key="`spc-${category.name}`"
+        class="main-side-nav-list"
+        nav
       >
-        <v-list-item-title>{{category.name}}</v-list-item-title>
-      </v-list-item>
-    </v-list>
-
-    <v-divider></v-divider>
-
-    <v-list
-      dense
-      link
-      v-for="(category, cat) in categories"
-      :key="category.name"
-      class="main-side-nav-list"
-    >
-      <template v-if="category.subCategories && category.subCategories.length > 0">
-
-        <v-list-group
-          group
-          dense
-          :key="category.name"
-          :value="cat === currentNav.cat"
-          :ref="`cat-${cat}`"
-          @click.prevent="routeLink(cat, null, null, category.slug)"
-          :to="category.slug"
-        >
-
-          <template slot="activator">
-            <v-list-item-title>{{category.name}}</v-list-item-title>
-          </template>
-
-          <template v-for="(subCategory, scat) in category.subCategories">
-
-            <template v-if="subCategory.child && subCategory.child.length > 0">
-
-              <v-list-item
-                @click="routeLink(cat, scat)"
-                :to="linkChild.link"
-                link
-                :class="['sub-group-list', scat === currentNav.scat ? 'sub-group-active' : '']"
-              >
-                <transition transition="scale-transition">
-                  <v-list-item-icon v-if="scat === currentNav.scat"><v-icon color="nav-active-color" class="nav-active-icon">mdi-chevron-up</v-icon></v-list-item-icon>
-                  <v-list-item-icon v-else><v-icon color="grey lighten-1">mdi-chevron-down</v-icon></v-list-item-icon>
-                </transition>
-
-                <v-list-item-title class="sub-group-title">{{linkChild.text}}</v-list-item-title>
-              </v-list-item>
-
-
-              <transition-group transition="expand-transition" class="py-0" group>
-                <template v-if="scat === currentNav.scat">
-                  <v-list-item
-                    v-for="(child, chi) in linkChild.child"
-                    :key="child.text"
-                    link
-                    :to="child.link"
-                  >
-                    <v-list-item-title @click="routeLink(cat, scat, chi)" v-text="child.text" class="sub-group-child"></v-list-item-title>
-                  </v-list-item>
-                </template>
-              </transition-group>
-
-
-
-            </template>
-
-            <template v-else>
-
-              <v-list-item
-                :key="subCategory.name"
-                link
-                :to="subCategory.slug"
-                class="single-sub-group"
-              >
-                <v-list-item-title @click="routeLink(cat, scat)" v-text="subCategory.name"></v-list-item-title>
-              </v-list-item>
-            </template>
-
-          </template>
-
-
-        </v-list-group>
-
-      </template>
-
-      <template v-else >
         <v-list-item
           link
-          :to="category.name"
+          :to="category.slug"
           :key="category.name"
-          @click="routeLink(cat)"
+
         >
           <v-list-item-title>{{category.name}}</v-list-item-title>
         </v-list-item>
-      </template>
+      </v-list>
+    </no-ssr>
 
-    </v-list>
+
+    <v-divider></v-divider>
+
+    <no-ssr>
+      <v-list
+        dense
+        link
+        v-for="(category, cat) in categories"
+        :key="category.name"
+        class="main-side-nav-list"
+      >
+        <template v-if="category.subCategories && category.subCategories.length > 0">
+
+          <v-list-group
+            group
+            dense
+            :key="category.name"
+            :value="parseInt(category.id) === parseInt(currentNav.categoryId)"
+            :ref="`cat-${cat}`"
+            :to="category.slug"
+            @click="$router.push(`/${category.slug}`)"
+          >
+            <!--@click.prevent="routeLink(cat, null, null, category.slug)"-->
+
+            <template slot="activator">
+              <v-list-item-icon>
+                <v-icon>{{ `mdi-${category.icon}` }}</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>{{category.name}}</v-list-item-title>
+              </v-list-item-content>
+
+            </template>
+
+            <template v-for="(subCategory, scat) in category.subCategories">
+
+              <template v-if="subCategory.child && subCategory.child.length > 0">
+
+                <v-list-item
+                  @click="routeLink(cat, scat)"
+                  :to="linkChild.link"
+                  link
+                  :class="['sub-group-list', scat === currentNav.scat ? 'sub-group-active' : '']"
+                >
+                  <transition transition="scale-transition">
+                    <v-list-item-icon v-if="scat === currentNav.scat"><v-icon color="nav-active-color" class="nav-active-icon">mdi-chevron-up</v-icon></v-list-item-icon>
+                    <v-list-item-icon v-else><v-icon color="grey lighten-1">mdi-chevron-down</v-icon></v-list-item-icon>
+                  </transition>
+
+                  <v-list-item-title class="sub-group-title">{{linkChild.text}}</v-list-item-title>
+                </v-list-item>
+
+
+                <transition-group transition="expand-transition" class="py-0" group>
+                  <template v-if="scat === currentNav.scat">
+                    <v-list-item
+                      v-for="(child, chi) in linkChild.child"
+                      :key="child.text"
+                      link
+                      :to="child.link"
+                    >
+                      <v-list-item-title @click="routeLink(cat, scat, chi)" v-text="child.text" class="sub-group-child"></v-list-item-title>
+                    </v-list-item>
+                  </template>
+                </transition-group>
+
+
+
+              </template>
+
+              <template v-else>
+
+                <v-list-item
+                  :key="subCategory.name"
+                  link
+                  :to="subCategory.slug"
+                  class="single-sub-group"
+                >
+                  <v-list-item-icon>
+                    <v-icon>{{ `mdi-${subCategory.icon}` }}</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title v-text="subCategory.name">
+                      <!--@click="routeLink(cat, scat)"-->
+                    </v-list-item-title>
+                  </v-list-item-content>
+
+                </v-list-item>
+              </template>
+
+            </template>
+
+
+          </v-list-group>
+
+        </template>
+
+        <template v-else>
+          <v-list-item link :to="category.name" :key="category.name">
+            <!--@click="routeLink(cat)"-->
+            <v-list-item-icon>
+              <v-icon>{{ `mdi-${category.icon}` }}</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>{{category.name}}</v-list-item-title>
+            </v-list-item-content>
+
+          </v-list-item>
+        </template>
+
+      </v-list>
+
+    </no-ssr>
+
+
 
 
   </v-navigation-drawer>

@@ -81,6 +81,7 @@ export const actions = {
     checkout.chequeDate = ''
     checkout.bankId = 1
 
+    checkout.locationId = state.checkoutLocation
     checkout.note = state.deliveryNote ? state.deliveryNote : 'demo'
     checkout.deliveryDay = state.deliveryDay ? state.deliveryDay : ''
     checkout.deliveryTime = state.deliveryTime ? state.deliveryTime : ''

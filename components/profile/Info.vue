@@ -73,7 +73,7 @@
       emailRules: [v => !v ||  /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'],
       numberRules: [
         v => !!v || 'Number is required',
-        v => (v && v.length === 13) || 'Number must be of 10 digit appending 88',
+        v => (v && v.length === 13) || 'Number must be of 13 digits appending 88',
         v => (v && v[0] === '8' && v[1] === '8' && v[2] === '0' && v[3] === '1' && (v[4] === '3' || v[4] === '4' || v[4] === '5' || v[4] === '6' || v[4] === '7' || v[4] === '8' || v[4] === '9')) || 'Invalid Number',
       ],
       hasSaved: false,

@@ -11,7 +11,7 @@
 
 <script>
   import {mapGetters} from 'vuex'
-  import SingleItem from "./Item";
+  import SingleItem from './Item'
   import ItemDetailsDialog from '../item/ItemDetailsDialog'
 
   export default {

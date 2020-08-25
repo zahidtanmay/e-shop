@@ -22,13 +22,13 @@
             persistent-hint
           ></v-text-field>
 
-          <!--<v-text-field-->
-            <!--outlined-->
-            <!--v-model="phone"-->
-            <!--label="Phone"-->
-            <!--:rules="[rules.required]"-->
-            <!--persistent-hint-->
-          <!--&gt;</v-text-field>-->
+          <v-text-field
+            outlined
+            v-model="phone"
+            label="Phone"
+            :rules="numberRules"
+            persistent-hint
+          ></v-text-field>
 
           <v-select
             outlined
@@ -109,12 +109,15 @@
 
     data: () => ({
       location: {},
-      phone: '',
-      address: '',
       valid: false,
       rules: {
         required: value => !!value || 'Required.',
       },
+      numberRules: [
+        v => !!v || 'Number is required',
+        v => (v && v.length === 13) || 'Number must be of 13 digits appending 88',
+        v => (v && v[0] === '8' && v[1] === '8' && v[2] === '0' && v[3] === '1' && (v[4] === '3' || v[4] === '4' || v[4] === '5' || v[4] === '6' || v[4] === '7' || v[4] === '8' || v[4] === '9')) || 'Invalid Number',
+      ],
     }),
 
     computed: {
@@ -138,6 +141,15 @@
         },
         set (val) {
           this.location.locationName = val
+        }
+      },
+
+      phone: {
+        get() {
+          return this.$store.state.profile.activeAddress.phone
+        },
+        set (val) {
+          this.location.phone = val
         }
       },
 

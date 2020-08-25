@@ -16,27 +16,13 @@
             <v-list-item-content>
               <v-list-item-subtitle v-text="category.name" class="text-center"></v-list-item-subtitle>
             </v-list-item-content>
-            <!--<v-list-item-icon>-->
-            <!--<v-icon v-text="card.icon" :color="card.color"></v-icon>-->
-            <!--</v-list-item-icon>-->
+            <v-list-item-icon>
+              <v-icon v-text="`mdi-${category.icon}`"></v-icon>
+            </v-list-item-icon>
           </v-list-item>
         </v-card>
       </v-col>
 
-      <!--<v-card class="d-flex justify-center" flat tile>-->
-
-        <!--<v-card-->
-          <!--v-for="category in categories"-->
-          <!--:key="category.name"-->
-          <!--class="pa-2 ma-1 text-center"-->
-          <!--outlined hover ripple-->
-          <!--:to="category.name"-->
-        <!--&gt;-->
-
-          <!--<div class="text-center">{{category.name}}</div>-->
-        <!--</v-card>-->
-
-      <!--</v-card>-->
     </v-row>
   </div>
 </template>
